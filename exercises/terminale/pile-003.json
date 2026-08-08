@@ -1,0 +1,47 @@
+{
+  "id": "pile-003",
+  "title": "Notation polonaise inverse",
+  "chapter": "chapitre-05",
+  "lesson": "lecon-appli-01",
+  "type": "programming",
+  "language": "python",
+  "difficulty": 4,
+  "points": 5,
+  "statement": "Écrivez une fonction `eval_npi(expression)` qui évalue une expression en notation polonaise inverse (ex: '3 4 + 2 *' → 14). Utilisez une pile.",
+  "starterCode": "def eval_npi(expression):\n    # expression est une chaîne\n    pass",
+  "solution": "def eval_npi(expression):\n    pile = []\n    for token in expression.split():\n        if token in '+-*/':\n            b = pile.pop()\n            a = pile.pop()\n            if token == '+':\n                pile.append(a + b)\n            elif token == '-':\n                pile.append(a - b)\n            elif token == '*':\n                pile.append(a * b)\n            elif token == '/':\n                pile.append(a / b)\n        else:\n            pile.append(float(token))\n    return pile[0]",
+  "hints": [
+    "Séparez l'expression par les espaces.",
+    "Si c'est un nombre, empilez. Si c'est un opérateur, dépilez deux opérandes.",
+    "Attention à l'ordre : le deuxième dépilé est à gauche de l'opération."
+  ],
+  "tests": [
+    {
+      "name": "Addition",
+      "code": "assert eval_npi('3 4 +') == 7",
+      "points": 1
+    },
+    {
+      "name": "Multiplication",
+      "code": "assert eval_npi('5 6 *') == 30",
+      "points": 1
+    },
+    {
+      "name": "Complexe",
+      "code": "assert eval_npi('3 4 + 2 *') == 14",
+      "points": 2
+    },
+    {
+      "name": "Soustraction",
+      "code": "assert eval_npi('10 3 -') == 7",
+      "points": 1
+    }
+  ],
+  "correction": {
+    "explanation": "La NPI utilise une pile : les opérandes sont empilées, les opérateurs déclenchent le calcul avec les deux derniers opérandes.",
+    "commonErrors": [
+      "Inverser a et b (ordre des opérandes)",
+      "Oublier de convertir en float/int"
+    ]
+  }
+}

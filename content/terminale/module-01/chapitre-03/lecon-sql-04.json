@@ -1,0 +1,34 @@
+{
+  "id": "lecon-sql-04",
+  "chapter": "chapitre-03",
+  "title": "3.4 Jointures",
+  "order": 4,
+  "type": "course",
+  "objectives": [
+    "Comprendre l'intérêt des jointures",
+    "Utiliser INNER JOIN",
+    "Utiliser LEFT JOIN"
+  ],
+  "content": "# Les jointures (JOIN)\n\n## Principe\n\nUne jointure permet de combiner des lignes de plusieurs tables en fonction d'une condition liée aux clés.\n\n## INNER JOIN\n\nRetourne uniquement les lignes ayant une correspondance dans les deux tables.\n\n```sql\nSELECT eleves.nom, classes.niveau\nFROM eleves\nINNER JOIN classes ON eleves.classe_id = classes.id;\n```\n\n## LEFT JOIN\n\nRetourne toutes les lignes de la table de gauche, même sans correspondance.\n\n```sql\nSELECT eleves.nom, notes.valeur\nFROM eleves\nLEFT JOIN notes ON eleves.id = notes.eleve_id;\n```\n\n## Types de jointures\n\n- `INNER JOIN` : intersection\n- `LEFT JOIN` : gauche + intersection\n- `RIGHT JOIN` : droite + intersection\n- `FULL OUTER JOIN` : union (non supporté partout)\n",
+  "examples": [
+    {
+      "title": "Jointure élèves-notes",
+      "code": "SELECT e.nom, n.matiere, n.valeur FROM eleves e JOIN notes n ON e.id = n.eleve_id;",
+      "explanation": "Affiche le nom de l'élève avec ses notes en joignant les deux tables."
+    }
+  ],
+  "activities": [],
+  "exerciseSeries": [
+    "serie-sql-02"
+  ],
+  "summary": "Les jointures combinent des tables. INNER JOIN conserve les correspondances. LEFT JOIN conserve toutes les lignes de la table gauche.",
+  "keywords": [
+    "JOIN",
+    "INNER JOIN",
+    "LEFT JOIN",
+    "clé étrangère",
+    "relation"
+  ],
+  "duration": 50,
+  "difficulty": 3
+}

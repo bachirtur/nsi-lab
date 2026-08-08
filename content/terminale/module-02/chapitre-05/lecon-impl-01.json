@@ -1,0 +1,35 @@
+{
+  "id": "lecon-impl-01",
+  "chapter": "chapitre-05",
+  "title": "5.4 Implémentation en Python",
+  "order": 4,
+  "type": "course",
+  "objectives": [
+    "Implémenter une pile avec une liste",
+    "Implémenter une file avec deque",
+    "Comprendre la complexité des opérations"
+  ],
+  "content": "# Implémentation complète\n\n## Pile avec liste Python\n\n```python\nclass Pile:\n    def __init__(self):\n        self._elements = []\n\n    def empiler(self, e):\n        self._elements.append(e)\n\n    def depiler(self):\n        assert not self.est_vide(), \"Pile vide\"\n        return self._elements.pop()\n\n    def sommet(self):\n        assert not self.est_vide(), \"Pile vide\"\n        return self._elements[-1]\n\n    def est_vide(self):\n        return len(self._elements) == 0\n\n    def __len__(self):\n        return len(self._elements)\n\n    def __repr__(self):\n        return f\"Pile({list(self._elements)})\"\n```\n\n## File avec deque\n\n```python\nfrom collections import deque\n\nclass File:\n    def __init__(self):\n        self._elements = deque()\n\n    def enfiler(self, e):\n        self._elements.append(e)\n\n    def defiler(self):\n        assert not self.est_vide(), \"File vide\"\n        return self._elements.popleft()\n\n    def tete(self):\n        assert not self.est_vide(), \"File vide\"\n        return self._elements[0]\n\n    def est_vide(self):\n        return len(self._elements) == 0\n\n    def __len__(self):\n        return len(self._elements)\n```\n\n> 💡 Utiliser `deque` plutôt que `list` pour les files car `pop(0)` sur une liste est en O(n) alors que `popleft()` sur deque est en O(1).\n",
+  "examples": [
+    {
+      "title": "Test des structures",
+      "code": "p = Pile()\np.empiler(1)\np.empiler(2)\np.empiler(3)\nprint(p.depiler())  # 3\nprint(p.sommet())   # 2\n\nf = File()\nf.enfiler('a')\nf.enfiler('b')\nprint(f.defiler())  # 'a'",
+      "explanation": "Vérification du comportement LIFO pour la pile et FIFO pour la file."
+    }
+  ],
+  "activities": [],
+  "exerciseSeries": [
+    "serie-piles-01",
+    "serie-files-01"
+  ],
+  "summary": "Une pile s'implémente naturellement avec append/pop. Une file nécessite deque pour des opérations efficaces aux deux extrémités.",
+  "keywords": [
+    "implémentation",
+    "deque",
+    "complexité",
+    "O(1)",
+    "assert"
+  ],
+  "duration": 50,
+  "difficulty": 3
+}

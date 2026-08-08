@@ -1,0 +1,46 @@
+{
+  "id": "sql-003",
+  "title": "Tri et alias",
+  "chapter": "chapitre-03",
+  "lesson": "lecon-sql-03",
+  "type": "sql",
+  "language": "sql",
+  "difficulty": 2,
+  "points": 5,
+  "statement": "Affichez le nom et la moyenne des élèves, renommez la colonne moyenne en 'note_moyenne', et triez par note décroissante.",
+  "starterCode": "",
+  "solution": "SELECT nom, moyenne AS note_moyenne FROM eleves ORDER BY moyenne DESC;",
+  "hints": [
+    "AS permet de renommer une colonne.",
+    "ORDER BY ... DESC pour le tri décroissant."
+  ],
+  "tests": [
+    {
+      "name": "Alias correct",
+      "check": "has_alias",
+      "expected": "note_moyenne",
+      "points": 2
+    },
+    {
+      "name": "ORDER BY DESC",
+      "check": "order_desc",
+      "points": 2
+    },
+    {
+      "name": "Colonnes",
+      "check": "columns",
+      "expected": [
+        "nom",
+        "note_moyenne"
+      ],
+      "points": 1
+    }
+  ],
+  "correction": {
+    "explanation": "AS crée un alias temporaire. ORDER BY DESC trie du plus grand au plus petit.",
+    "commonErrors": [
+      "Oublier DESC",
+      "Mettre l'alias dans ORDER BY (possible mais pas demandé)"
+    ]
+  }
+}

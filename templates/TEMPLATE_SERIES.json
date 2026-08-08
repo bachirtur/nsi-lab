@@ -1,0 +1,13 @@
+{
+  "id": "serie-xxx",
+  "title": "Titre de la série",
+  "chapter": "chapitre-xx",
+  "difficulty": 2,
+  "description": "Description de la série",
+  "exercises": [
+    "exercice-001",
+    "exercice-002"
+  ],
+  "timeLimit": 30,
+  "totalPoints": 20
+}

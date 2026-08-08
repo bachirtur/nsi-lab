@@ -1,0 +1,46 @@
+{
+  "id": "sql-001",
+  "title": "Sélection simple",
+  "chapter": "chapitre-03",
+  "lesson": "lecon-sql-02",
+  "type": "sql",
+  "language": "sql",
+  "difficulty": 1,
+  "points": 5,
+  "statement": "Écrivez une requête SQL pour afficher les noms et prénoms de tous les élèves de la table `eleves`.",
+  "starterCode": "-- Votre requête ici\n",
+  "solution": "SELECT nom, prenom FROM eleves;",
+  "hints": [
+    "Utilisez SELECT suivi des noms des colonnes.",
+    "N'oubliez pas FROM pour indiquer la table."
+  ],
+  "tests": [
+    {
+      "name": "Colonnes correctes",
+      "check": "columns",
+      "expected": [
+        "nom",
+        "prenom"
+      ],
+      "points": 2
+    },
+    {
+      "name": "Table correcte",
+      "check": "from",
+      "expected": "eleves",
+      "points": 1
+    },
+    {
+      "name": "Pas de WHERE inutile",
+      "check": "no_where",
+      "points": 2
+    }
+  ],
+  "correction": {
+    "explanation": "SELECT permet de choisir les colonnes. FROM indique la table source.",
+    "commonErrors": [
+      "Oublier la virgule entre les colonnes",
+      "Écrire le nom de table incorrect"
+    ]
+  }
+}

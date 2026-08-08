@@ -1,0 +1,35 @@
+{
+  "id": "lecon-sql-01",
+  "chapter": "chapitre-03",
+  "title": "3.1 Introduction à SQL",
+  "order": 1,
+  "type": "course",
+  "objectives": [
+    "Comprendre ce qu'est SQL",
+    "Connaître les principales commandes SQL",
+    "Distinguer les commandes DDL, DML et DQL"
+  ],
+  "content": "# Introduction au langage SQL\n\n## Qu'est-ce que SQL ?\n\n**SQL** (Structured Query Language) est un langage standardisé pour interroger et manipuler des bases de données relationnelles.\n\n## Catégories de commandes\n\n| Catégorie | Rôle | Exemples |\n|-----------|------|----------|\n| **DDL** | Définition des données | `CREATE`, `ALTER`, `DROP` |\n| **DML** | Manipulation des données | `INSERT`, `UPDATE`, `DELETE` |\n| **DQL** | Interrogation des données | `SELECT` |\n\n## Syntaxe de base\n\n```sql\nSELECT colonne1, colonne2\nFROM table\nWHERE condition;\n```\n\n> 💡 SQL n'est pas sensible à la casse pour les mots-clés, mais l'écriture en majuscules est une convention.\n",
+  "examples": [
+    {
+      "title": "Première requête",
+      "code": "SELECT * FROM eleves;",
+      "explanation": "Sélectionne toutes les colonnes et tous les enregistrements de la table eleves."
+    }
+  ],
+  "activities": [],
+  "exerciseSeries": [
+    "serie-sql-01"
+  ],
+  "summary": "SQL permet d'interroger (SELECT), insérer (INSERT), modifier (UPDATE) et supprimer (DELETE) des données. Les commandes se divisent en DDL, DML et DQL.",
+  "keywords": [
+    "SQL",
+    "DDL",
+    "DML",
+    "DQL",
+    "SELECT",
+    "base de données"
+  ],
+  "duration": 30,
+  "difficulty": 1
+}

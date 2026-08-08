@@ -1,0 +1,42 @@
+{
+  "id": "pile-001",
+  "title": "Implémenter une pile",
+  "chapter": "chapitre-05",
+  "lesson": "lecon-piles-01",
+  "type": "programming",
+  "language": "python",
+  "difficulty": 2,
+  "points": 5,
+  "statement": "Complétez la classe `Pile` pour qu'elle fonctionne correctement avec les méthodes `empiler`, `depiler`, `est_vide` et `sommet`.",
+  "starterCode": "class Pile:\n    def __init__(self):\n        self.elements = []\n    \n    def empiler(self, element):\n        # À compléter\n        pass\n    \n    def depiler(self):\n        # À compléter\n        pass\n    \n    def est_vide(self):\n        # À compléter\n        pass\n    \n    def sommet(self):\n        # À compléter\n        pass",
+  "solution": "class Pile:\n    def __init__(self):\n        self.elements = []\n    \n    def empiler(self, element):\n        self.elements.append(element)\n    \n    def depiler(self):\n        if not self.est_vide():\n            return self.elements.pop()\n        raise IndexError('Pile vide')\n    \n    def est_vide(self):\n        return len(self.elements) == 0\n    \n    def sommet(self):\n        if not self.est_vide():\n            return self.elements[-1]\n        raise IndexError('Pile vide')",
+  "hints": [
+    "Utilisez append() pour ajouter à la fin de la liste.",
+    "Utilisez pop() sans argument pour retirer le dernier élément.",
+    "Le dernier élément d'une liste est à l'index -1."
+  ],
+  "tests": [
+    {
+      "name": "Empiler et dépiler",
+      "code": "p = Pile(); p.empiler(5); p.empiler(10); assert p.depiler() == 10",
+      "points": 2
+    },
+    {
+      "name": "Est vide",
+      "code": "p = Pile(); assert p.est_vide() == True; p.empiler(1); assert p.est_vide() == False",
+      "points": 2
+    },
+    {
+      "name": "Sommet",
+      "code": "p = Pile(); p.empiler(7); assert p.sommet() == 7; assert len(p.elements) == 1",
+      "points": 1
+    }
+  ],
+  "correction": {
+    "explanation": "Une pile utilise les extrémités de la liste : append() pour empiler, pop() pour dépiler, index -1 pour le sommet.",
+    "commonErrors": [
+      "Utiliser insert(0, ...) au lieu de append",
+      "Oublier la vérification est_vide"
+    ]
+  }
+}

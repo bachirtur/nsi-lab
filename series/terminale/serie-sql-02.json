@@ -1,0 +1,13 @@
+{
+  "id": "serie-sql-02",
+  "title": "🔵 Série 2 — Entraînement SQL",
+  "chapter": "chapitre-03",
+  "difficulty": 2,
+  "description": "Agrégations, jointures et requêtes plus complexes.",
+  "exercises": [
+    "sql-004",
+    "sql-005"
+  ],
+  "timeLimit": 25,
+  "totalPoints": 10
+}

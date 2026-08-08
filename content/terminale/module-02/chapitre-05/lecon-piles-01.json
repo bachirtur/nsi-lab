@@ -1,0 +1,43 @@
+{
+  "id": "lecon-piles-01",
+  "chapter": "chapitre-05",
+  "title": "5.2 Les piles (LIFO)",
+  "order": 2,
+  "type": "course",
+  "objectives": [
+    "Comprendre le principe LIFO",
+    "Implémenter une pile en Python",
+    "Utiliser empiler (push) et dépiler (pop)"
+  ],
+  "content": "# Les piles (Stack)\n\n## Principe LIFO\n\n**LIFO** = Last In, First Out (Dernier entré, premier sorti)\n\nImaginez une pile d'assiettes : on pose une assiette sur le dessus, et on retire celle du dessus.\n\n## Schéma\n\n```\nDépiler ← [C]     Haut de pile\n          [B]\n          [A]     Base de pile\n```\n\n## Opérations fondamentales\n\n| Opération | Nom | Action | Complexité |\n|-----------|-----|--------|------------|\n| `empiler` | push | Ajoute au sommet | O(1) |\n| `dépiler` | pop | Retire du sommet | O(1) |\n| `sommet` | peek | Consulte le sommet | O(1) |\n| `est_vide` | isEmpty | Teste si vide | O(1) |\n\n## Implémentation avec une liste Python\n\n```python\nclass Pile:\n    def __init__(self):\n        self.elements = []\n\n    def empiler(self, element):\n        self.elements.append(element)\n\n    def depiler(self):\n        if not self.est_vide():\n            return self.elements.pop()\n        raise IndexError(\"Pile vide\")\n\n    def sommet(self):\n        if not self.est_vide():\n            return self.elements[-1]\n        raise IndexError(\"Pile vide\")\n\n    def est_vide(self):\n        return len(self.elements) == 0\n\n    def taille(self):\n        return len(self.elements)\n```\n\n## Applications\n\n- Annulation d'actions (Ctrl+Z)\n- Évaluation d'expressions mathématiques\n- Parcours en profondeur (DFS)\n- Appels de fonctions (pile d'exécution)\n",
+  "examples": [
+    {
+      "title": "Vérification des parenthèses",
+      "code": "def parentheses_ok(expression):\n    pile = []\n    for car in expression:\n        if car == '(':\n            pile.append(car)\n        elif car == ')':\n            if len(pile) == 0:\n                return False\n            pile.pop()\n    return len(pile) == 0",
+      "explanation": "Utilise une pile pour vérifier que chaque parenthèse ouvrante a sa fermante correspondante."
+    }
+  ],
+  "activities": [
+    {
+      "title": "À vous de jouer",
+      "type": "python",
+      "instruction": "Créez une pile, empilez les valeurs 10, 20 et 30, puis dépilez une valeur et affichez-la.",
+      "solution": "p = Pile()\np.empiler(10)\np.empiler(20)\np.empiler(30)\nprint(p.depiler())  # 30"
+    }
+  ],
+  "exerciseSeries": [
+    "serie-piles-01"
+  ],
+  "summary": "Une pile suit le principe LIFO. Les opérations principales sont empiler (push) et dépiler (pop). Elle s'implémente facilement avec une liste Python.",
+  "keywords": [
+    "pile",
+    "LIFO",
+    "push",
+    "pop",
+    "empiler",
+    "dépiler",
+    "sommet"
+  ],
+  "duration": 45,
+  "difficulty": 2
+}

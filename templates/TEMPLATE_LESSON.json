@@ -1,0 +1,22 @@
+{
+  "id": "lecon-xxx",
+  "chapter": "chapitre-xx",
+  "title": "Titre de la leçon",
+  "order": 1,
+  "type": "course",
+  "objectives": [
+    "Objectif pédagogique 1",
+    "Objectif pédagogique 2"
+  ],
+  "content": "# Contenu de la leçon\n\nEn Markdown ou HTML.",
+  "examples": [],
+  "activities": [],
+  "exerciseSeries": [],
+  "summary": "Résumé de la leçon",
+  "keywords": [
+    "mot-clé1",
+    "mot-clé2"
+  ],
+  "duration": 45,
+  "difficulty": 2
+}

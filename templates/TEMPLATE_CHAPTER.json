@@ -1,0 +1,10 @@
+{
+  "id": "chapitre-xx",
+  "title": "Chapitre X : Titre du chapitre",
+  "module": "module-xx",
+  "order": 1,
+  "description": "Description du chapitre",
+  "lessons": [],
+  "exercises": [],
+  "series": []
+}

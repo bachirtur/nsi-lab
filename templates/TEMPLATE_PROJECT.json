@@ -1,0 +1,32 @@
+{
+  "id": "projet-xx",
+  "title": "Titre du projet",
+  "module": "module-xx",
+  "description": "Description du projet",
+  "objectives": [
+    "Objectif 1",
+    "Objectif 2"
+  ],
+  "skills": [
+    "Compétence 1",
+    "Compétence 2"
+  ],
+  "specifications": "Cahier des charges",
+  "steps": [
+    {
+      "order": 1,
+      "title": "Étape 1",
+      "description": "Description"
+    }
+  ],
+  "starterCode": "# Code de départ",
+  "resources": [],
+  "tests": [],
+  "rubric": [
+    {
+      "criteria": "Critère 1",
+      "points": 5
+    }
+  ],
+  "totalPoints": 20
+}

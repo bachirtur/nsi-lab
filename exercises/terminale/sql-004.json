@@ -1,0 +1,44 @@
+{
+  "id": "sql-004",
+  "title": "Fonction d'agrégation",
+  "chapter": "chapitre-03",
+  "lesson": "lecon-sql-03",
+  "type": "sql",
+  "language": "sql",
+  "difficulty": 3,
+  "points": 5,
+  "statement": "Calculez la moyenne générale de tous les élèves (utilisez AVG). Nommez le résultat 'moyenne_generale'.",
+  "starterCode": "",
+  "solution": "SELECT AVG(moyenne) AS moyenne_generale FROM eleves;",
+  "hints": [
+    "AVG() calcule la moyenne d'une colonne.",
+    "Utilisez AS pour nommer le résultat."
+  ],
+  "tests": [
+    {
+      "name": "AVG utilisé",
+      "check": "has_function",
+      "expected": "AVG",
+      "points": 2
+    },
+    {
+      "name": "Alias correct",
+      "check": "has_alias",
+      "expected": "moyenne_generale",
+      "points": 2
+    },
+    {
+      "name": "Table correcte",
+      "check": "from",
+      "expected": "eleves",
+      "points": 1
+    }
+  ],
+  "correction": {
+    "explanation": "AVG() est une fonction d'agrégation qui calcule la moyenne. Elle s'applique à toute la table sauf si GROUP BY est utilisé.",
+    "commonErrors": [
+      "Écrire MOYENNE au lieu de AVG",
+      "Oublier les parenthèses"
+    ]
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "program": {
+    "id": "terminale-nsi",
+    "title": "Terminale NSI",
+    "level": "Terminale",
+    "modules": [
+      {
+        "id": "module-01",
+        "title": "Module 1 — Bases de données",
+        "icon": "🗄️",
+        "chapters": [
+          {
+            "id": "chapitre-01",
+            "title": "Chapitre 1 : Introduction aux bases de données",
+            "order": 1
+          },
+          {
+            "id": "chapitre-02",
+            "title": "Chapitre 2 : Les bases de données relationnelles",
+            "order": 2
+          },
+          {
+            "id": "chapitre-03",
+            "title": "Chapitre 3 : Le langage SQL",
+            "order": 3
+          }
+        ]
+      },
+      {
+        "id": "module-02",
+        "title": "Module 2 — Structures de données et algorithmes",
+        "icon": "🌳",
+        "chapters": [
+          {
+            "id": "chapitre-04",
+            "title": "Chapitre 4 : Récursivité",
+            "order": 4
+          },
+          {
+            "id": "chapitre-05",
+            "title": "Chapitre 5 : Listes, piles et files",
+            "order": 5
+          },
+          {
+            "id": "chapitre-06",
+            "title": "Chapitre 6 : Dictionnaires",
+            "order": 6
+          },
+          {
+            "id": "chapitre-07",
+            "title": "Chapitre 7 : Arbres",
+            "order": 7
+          },
+          {
+            "id": "chapitre-08",
+            "title": "Chapitre 8 : Algorithmes sur les arbres binaires",
+            "order": 8
+          },
+          {
+            "id": "chapitre-09",
+            "title": "Chapitre 9 : Graphes",
+            "order": 9
+          },
+          {
+            "id": "chapitre-10",
+            "title": "Chapitre 10 : Algorithmes sur les graphes",
+            "order": 10
+          }
+        ]
+      },
+      {
+        "id": "module-03",
+        "title": "Module 3 — Réseaux et sécurité",
+        "icon": "🌐",
+        "chapters": [
+          {
+            "id": "chapitre-11",
+            "title": "Chapitre 11 : Protocoles de routage",
+            "order": 11
+          },
+          {
+            "id": "chapitre-12",
+            "title": "Chapitre 12 : Sécurisation des communications",
+            "order": 12
+          }
+        ]
+      },
+      {
+        "id": "module-04",
+        "title": "Module 4 — Langages et programmation",
+        "icon": "💻",
+        "chapters": [
+          {
+            "id": "chapitre-13",
+            "title": "Chapitre 13 : Calculabilité et décidabilité",
+            "order": 13
+          },
+          {
+            "id": "chapitre-14",
+            "title": "Chapitre 14 : Paradigmes de programmation",
+            "order": 14
+          },
+          {
+            "id": "chapitre-15",
+            "title": "Chapitre 15 : Programmation orientée objet",
+            "order": 15
+          },
+          {
+            "id": "chapitre-16",
+            "title": "Chapitre 16 : Programmation fonctionnelle",
+            "order": 16
+          }
+        ]
+      },
+      {
+        "id": "module-05",
+        "title": "Module 5 — Algorithmique avancée",
+        "icon": "⚡",
+        "chapters": [
+          {
+            "id": "chapitre-17",
+            "title": "Chapitre 17 : Méthode diviser pour régner",
+            "order": 17
+          },
+          {
+            "id": "chapitre-18",
+            "title": "Chapitre 18 : Programmation dynamique",
+            "order": 18
+          },
+          {
+            "id": "chapitre-19",
+            "title": "Chapitre 19 : Recherche textuelle",
+            "order": 19
+          }
+        ]
+      },
+      {
+        "id": "module-06",
+        "title": "Module 6 — Architecture et systèmes",
+        "icon": "🔧",
+        "chapters": [
+          {
+            "id": "chapitre-20",
+            "title": "Chapitre 20 : Composants intégrés d'un système sur puce",
+            "order": 20
+          },
+          {
+            "id": "chapitre-21",
+            "title": "Chapitre 21 : Les processus",
+            "order": 21
+          }
+        ]
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "projet-01",
+      "title": "Projet 1 : Base de données et Python",
+      "module": "module-01"
+    },
+    {
+      "id": "projet-02",
+      "title": "Projet 2 : Implémentation des algorithmes sur les graphes",
+      "module": "module-02"
+    },
+    {
+      "id": "projet-03",
+      "title": "Projet 3 : Implémentation des algorithmes sur les arbres binaires",
+      "module": "module-02"
+    },
+    {
+      "id": "projet-04",
+      "title": "Projet 4 : Implémentation de l'algorithme de tri-fusion",
+      "module": "module-05"
+    },
+    {
+      "id": "projet-05",
+      "title": "Projet 5 : Création d'un jeu du morpion avec Pygame",
+      "module": "module-04"
+    }
+  ]
+}

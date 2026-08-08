@@ -1,0 +1,33 @@
+{
+  "id": "exercice-xxx",
+  "title": "Titre de l'exercice",
+  "chapter": "chapitre-xx",
+  "lesson": "lecon-xxx",
+  "type": "programming",
+  "language": "python",
+  "difficulty": 2,
+  "points": 5,
+  "statement": "Énoncé de l'exercice en Markdown.",
+  "starterCode": "# Code de départ",
+  "solution": "# Solution complète",
+  "hints": [
+    "Indice 1",
+    "Indice 2",
+    "Indice 3"
+  ],
+  "tests": [
+    {
+      "name": "Test 1",
+      "input": "",
+      "expected": "",
+      "points": 1
+    }
+  ],
+  "correction": {
+    "explanation": "Explication pédagogique",
+    "commonErrors": [
+      "Erreur fréquente 1",
+      "Erreur fréquente 2"
+    ]
+  }
+}

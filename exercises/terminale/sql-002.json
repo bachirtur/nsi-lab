@@ -1,0 +1,46 @@
+{
+  "id": "sql-002",
+  "title": "Filtrer avec WHERE",
+  "chapter": "chapitre-03",
+  "lesson": "lecon-sql-02",
+  "type": "sql",
+  "language": "sql",
+  "difficulty": 2,
+  "points": 5,
+  "statement": "Affichez le nom et la moyenne des élèves ayant une moyenne supérieure ou égale à 12.",
+  "starterCode": "",
+  "solution": "SELECT nom, moyenne FROM eleves WHERE moyenne >= 12;",
+  "hints": [
+    "La condition s'écrit avec WHERE.",
+    "L'opérateur 'supérieur ou égal' est >=."
+  ],
+  "tests": [
+    {
+      "name": "WHERE présent",
+      "check": "has_where",
+      "points": 1
+    },
+    {
+      "name": "Condition correcte",
+      "check": "condition",
+      "expected": "moyenne >= 12",
+      "points": 2
+    },
+    {
+      "name": "Colonnes correctes",
+      "check": "columns",
+      "expected": [
+        "nom",
+        "moyenne"
+      ],
+      "points": 2
+    }
+  ],
+  "correction": {
+    "explanation": "WHERE filtre les lignes avant l'affichage. L'opérateur >= signifie 'supérieur ou égal'.",
+    "commonErrors": [
+      "Utiliser = au lieu de >=",
+      "Oublier WHERE"
+    ]
+  }
+}

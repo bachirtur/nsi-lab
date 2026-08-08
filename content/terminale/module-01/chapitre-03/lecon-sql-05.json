@@ -1,0 +1,35 @@
+{
+  "id": "lecon-sql-05",
+  "chapter": "chapitre-03",
+  "title": "3.5 INSERT, UPDATE, DELETE",
+  "order": 5,
+  "type": "course",
+  "objectives": [
+    "Insérer des enregistrements",
+    "Modifier des données existantes",
+    "Supprimer des enregistrements"
+  ],
+  "content": "# Modification des données\n\n## INSERT INTO\n\n```sql\nINSERT INTO eleves (nom, prenom, classe)\nVALUES ('Dupont', 'Marie', 'Terminale');\n```\n\nInsertion multiple :\n\n```sql\nINSERT INTO eleves (nom, prenom, classe)\nVALUES \n    ('Martin', 'Luc', 'Terminale'),\n    ('Bernard', 'Anna', 'Première');\n```\n\n## UPDATE\n\n```sql\nUPDATE eleves\nSET classe = 'Terminale'\nWHERE nom = 'Martin';\n```\n\n> ⚠️ Ne jamais oublier WHERE avec UPDATE sous peine de modifier toute la table !\n\n## DELETE\n\n```sql\nDELETE FROM eleves WHERE id = 5;\n```\n\n> ⚠️ Ne jamais oublier WHERE avec DELETE sous peine de vider toute la table !\n",
+  "examples": [
+    {
+      "title": "Mise à jour conditionnelle",
+      "code": "UPDATE notes SET valeur = valeur + 1 WHERE matiere = 'NSI' AND valeur < 20;",
+      "explanation": "Augmente d'un point toutes les notes de NSI inférieures à 20."
+    }
+  ],
+  "activities": [],
+  "exerciseSeries": [
+    "serie-sql-02",
+    "serie-sql-03"
+  ],
+  "summary": "INSERT ajoute des lignes. UPDATE modifie des lignes existantes. DELETE supprime des lignes. WHERE est indispensable pour cibler les bonnes lignes.",
+  "keywords": [
+    "INSERT",
+    "UPDATE",
+    "DELETE",
+    "VALUES",
+    "SET"
+  ],
+  "duration": 40,
+  "difficulty": 2
+}

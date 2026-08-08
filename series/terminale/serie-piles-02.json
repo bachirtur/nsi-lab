@@ -1,0 +1,13 @@
+{
+  "id": "serie-piles-02",
+  "title": "🔵 Série 2 — Applications des piles",
+  "chapter": "chapitre-05",
+  "difficulty": 3,
+  "description": "Problèmes classiques utilisant les piles.",
+  "exercises": [
+    "pile-002",
+    "pile-003"
+  ],
+  "timeLimit": 30,
+  "totalPoints": 10
+}

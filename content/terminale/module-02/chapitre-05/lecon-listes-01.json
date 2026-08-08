@@ -1,0 +1,34 @@
+{
+  "id": "lecon-listes-01",
+  "chapter": "chapitre-05",
+  "title": "5.1 Les listes chaînées",
+  "order": 1,
+  "type": "course",
+  "objectives": [
+    "Comprendre la structure d'une liste chaînée",
+    "Différencier liste chaînée et tableau",
+    "Connaître les opérations de base"
+  ],
+  "content": "# Les listes chaînées\n\n## Définition\n\nUne **liste chaînée** est une structure de données linéaire où chaque élément (nœud) contient :\n- Une **valeur** (donnée)\n- Une **référence** vers le nœud suivant\n\n## Schéma\n\n```\n[donnée | suivant] → [donnée | suivant] → [donnée | None]\n```\n\n## Liste chaînée vs Tableau\n\n| Critère | Tableau | Liste chaînée |\n|---------|---------|---------------|\n| Accès | Direct par index | Séquentiel |\n| Taille | Fixe (souvent) | Dynamique |\n| Insertion | Coûteuse (décalage) | Efficace |\n| Mémoire | Contiguë | Dispersée |\n\n## Implémentation en Python\n\n```python\nclass Noeud:\n    def __init__(self, valeur):\n        self.valeur = valeur\n        self.suivant = None\n\nclass ListeChainee:\n    def __init__(self):\n        self.tete = None\n\n    def ajouter_debut(self, valeur):\n        nouveau = Noeud(valeur)\n        nouveau.suivant = self.tete\n        self.tete = nouveau\n```\n",
+  "examples": [
+    {
+      "title": "Parcours d'une liste chaînée",
+      "code": "def afficher_liste(liste):\n    courant = liste.tete\n    while courant is not None:\n        print(courant.valeur)\n        courant = courant.suivant",
+      "explanation": "Parcourt la liste de la tête jusqu'à la fin en suivant les références."
+    }
+  ],
+  "activities": [],
+  "exerciseSeries": [
+    "serie-listes-01"
+  ],
+  "summary": "Une liste chaînée est une séquence de nœuds reliés par des références. Elle offre une insertion efficace mais un accès séquentiel.",
+  "keywords": [
+    "liste chaînée",
+    "nœud",
+    "référence",
+    "tête",
+    "parcours"
+  ],
+  "duration": 45,
+  "difficulty": 2
+}

@@ -1,0 +1,52 @@
+{
+  "id": "pile-002",
+  "title": "Vérifier les parenthèses",
+  "chapter": "chapitre-05",
+  "lesson": "lecon-piles-01",
+  "type": "programming",
+  "language": "python",
+  "difficulty": 3,
+  "points": 5,
+  "statement": "Écrivez une fonction `parentheses_ok(expression)` qui retourne True si les parenthèses dans l'expression sont équilibrées, False sinon. Utilisez une pile.",
+  "starterCode": "def parentheses_ok(expression):\n    # Votre code ici\n    pass",
+  "solution": "def parentheses_ok(expression):\n    pile = []\n    for car in expression:\n        if car == '(':\n            pile.append(car)\n        elif car == ')':\n            if len(pile) == 0:\n                return False\n            pile.pop()\n    return len(pile) == 0",
+  "hints": [
+    "Empilez '(' et dépilez quand vous rencontrez ')'.",
+    "Si la pile est vide quand vous voyez ')', c'est faux.",
+    "À la fin, la pile doit être vide."
+  ],
+  "tests": [
+    {
+      "name": "Équilibré simple",
+      "code": "assert parentheses_ok('(1+2)') == True",
+      "points": 1
+    },
+    {
+      "name": "Équilibré complexe",
+      "code": "assert parentheses_ok('((3+4)*5)') == True",
+      "points": 1
+    },
+    {
+      "name": "Non équilibré",
+      "code": "assert parentheses_ok('(1+2') == False",
+      "points": 1
+    },
+    {
+      "name": "Trop de fermantes",
+      "code": "assert parentheses_ok(')1+2(') == False",
+      "points": 1
+    },
+    {
+      "name": "Chaîne vide",
+      "code": "assert parentheses_ok('') == True",
+      "points": 1
+    }
+  ],
+  "correction": {
+    "explanation": "Chaque parenthèse ouvrante doit être fermée dans le bon ordre. La pile mémorise l'ordre d'ouverture.",
+    "commonErrors": [
+      "Ne pas vérifier la pile vide avant pop",
+      "Oublier le test final len(pile)==0"
+    ]
+  }
+}

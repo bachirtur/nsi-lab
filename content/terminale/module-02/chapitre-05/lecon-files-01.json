@@ -1,0 +1,36 @@
+{
+  "id": "lecon-files-01",
+  "chapter": "chapitre-05",
+  "title": "5.3 Les files (FIFO)",
+  "order": 3,
+  "type": "course",
+  "objectives": [
+    "Comprendre le principe FIFO",
+    "Implémenter une file en Python",
+    "Distinguer pile et file"
+  ],
+  "content": "# Les files (Queue)\n\n## Principe FIFO\n\n**FIFO** = First In, First Out (Premier entré, premier sorti)\n\nImaginez une file d'attente : le premier arrivé est le premier servi.\n\n## Schéma\n\n```\nEnfiler → [A] → [B] → [C] → Défiler\n         Tête              Queue\n```\n\n## Opérations fondamentales\n\n| Opération | Nom | Action | Complexité |\n|-----------|-----|--------|------------|\n| `enfiler` | enqueue | Ajoute en queue | O(1)* |\n| `défiler` | dequeue | Retire en tête | O(1)* |\n| `tete` | front | Consulte la tête | O(1) |\n| `est_vide` | isEmpty | Teste si vide | O(1) |\n\n*Avec une implémentation optimisée (collections.deque)\n\n## Implémentation avec collections.deque\n\n```python\nfrom collections import deque\n\nclass File:\n    def __init__(self):\n        self.elements = deque()\n\n    def enfiler(self, element):\n        self.elements.append(element)\n\n    def defiler(self):\n        if not self.est_vide():\n            return self.elements.popleft()\n        raise IndexError(\"File vide\")\n\n    def tete(self):\n        if not self.est_vide():\n            return self.elements[0]\n        raise IndexError(\"File vide\")\n\n    def est_vide(self):\n        return len(self.elements) == 0\n```\n\n## Pile vs File\n\n| Pile (LIFO) | File (FIFO) |\n|-------------|-------------|\n| Dernier entré, premier sorti | Premier entré, premier sorti |\n| Empiler au sommet | Enfiler en queue |\n| Dépiler au sommet | Défiler en tête |\n| Appels de fonctions | File d'impression |\n\n## Applications des files\n\n- File d'impression\n- Gestion des processus (ordonnancement)\n- Parcours en largeur (BFS)\n- Buffer de données\n",
+  "examples": [
+    {
+      "title": "Simulation de file d'attente",
+      "code": "file = File()\nfile.enfiler('Client A')\nfile.enfiler('Client B')\nprint(file.defiler())  # Client A\nprint(file.defiler())  # Client B",
+      "explanation": "Les clients sont servis dans l'ordre d'arrivée."
+    }
+  ],
+  "activities": [],
+  "exerciseSeries": [
+    "serie-files-01"
+  ],
+  "summary": "Une file suit le principe FIFO. Les opérations sont enfiler (enqueue) et défiler (dequeue). collections.deque offre une implémentation efficace.",
+  "keywords": [
+    "file",
+    "FIFO",
+    "enqueue",
+    "dequeue",
+    "enfiler",
+    "défiler",
+    "deque"
+  ],
+  "duration": 40,
+  "difficulty": 2
+}

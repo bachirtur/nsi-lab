@@ -1,0 +1,38 @@
+{
+  "id": "lecon-sql-03",
+  "chapter": "chapitre-03",
+  "title": "3.3 Tri et fonctions d'agrégation",
+  "order": 3,
+  "type": "course",
+  "objectives": [
+    "Trier les résultats avec ORDER BY",
+    "Utiliser COUNT, SUM, AVG, MIN, MAX",
+    "Regrouper avec GROUP BY"
+  ],
+  "content": "# Tri et fonctions d'agrégation\n\n## ORDER BY\n\n```sql\nSELECT * FROM eleves ORDER BY nom ASC;   -- croissant\nSELECT * FROM eleves ORDER BY moyenne DESC; -- décroissant\n```\n\n## Fonctions d'agrégation\n\n| Fonction | Description |\n|----------|-------------|\n| `COUNT(*)` | Nombre d'enregistrements |\n| `SUM(colonne)` | Somme |\n| `AVG(colonne)` | Moyenne |\n| `MIN(colonne)` | Minimum |\n| `MAX(colonne)` | Maximum |\n\n## GROUP BY\n\n```sql\nSELECT classe, COUNT(*) AS nb_eleves\nFROM eleves\nGROUP BY classe;\n```\n\n## HAVING\n\n```sql\nSELECT classe, AVG(moyenne) AS moyenne_classe\nFROM eleves\nGROUP BY classe\nHAVING AVG(moyenne) > 10;\n```\n\n> 💡 `HAVING` filtre après le regroupement, `WHERE` filtre avant.\n",
+  "examples": [
+    {
+      "title": "Moyenne par classe",
+      "code": "SELECT classe, AVG(moyenne) FROM eleves GROUP BY classe;",
+      "explanation": "Calcule la moyenne générale pour chaque classe."
+    }
+  ],
+  "activities": [],
+  "exerciseSeries": [
+    "serie-sql-01",
+    "serie-sql-02"
+  ],
+  "summary": "ORDER BY trie les résultats. Les fonctions d'agrégation (COUNT, SUM, AVG, MIN, MAX) calculent des statistiques. GROUP BY regroupe les lignes. HAVING filtre les groupes.",
+  "keywords": [
+    "ORDER BY",
+    "GROUP BY",
+    "HAVING",
+    "COUNT",
+    "SUM",
+    "AVG",
+    "MIN",
+    "MAX"
+  ],
+  "duration": 45,
+  "difficulty": 3
+}

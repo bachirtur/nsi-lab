@@ -1,0 +1,42 @@
+{
+  "id": "pile-004",
+  "title": "Inverser une chaîne",
+  "chapter": "chapitre-05",
+  "lesson": "lecon-piles-01",
+  "type": "programming",
+  "language": "python",
+  "difficulty": 1,
+  "points": 5,
+  "statement": "Écrivez une fonction `inverser_chaine(chaine)` qui retourne la chaîne inversée en utilisant une pile.",
+  "starterCode": "def inverser_chaine(chaine):\n    # Utilisez une pile\n    pass",
+  "solution": "def inverser_chaine(chaine):\n    pile = []\n    for car in chaine:\n        pile.append(car)\n    resultat = ''\n    while pile:\n        resultat += pile.pop()\n    return resultat",
+  "hints": [
+    "Empilez chaque caractère.",
+    "Dépilez tout pour reconstruire la chaîne dans l'ordre inverse.",
+    "Rappelez-vous : LIFO = dernier entré, premier sorti."
+  ],
+  "tests": [
+    {
+      "name": "Simple",
+      "code": "assert inverser_chaine('abc') == 'cba'",
+      "points": 2
+    },
+    {
+      "name": "Palindrome",
+      "code": "assert inverser_chaine('kayak') == 'kayak'",
+      "points": 2
+    },
+    {
+      "name": "Vide",
+      "code": "assert inverser_chaine('') == ''",
+      "points": 1
+    }
+  ],
+  "correction": {
+    "explanation": "La propriété LIFO d'une pile inverse naturellement l'ordre des éléments.",
+    "commonErrors": [
+      "Utiliser [::-1] (la consigne demande une pile)",
+      "Oublier de vider la pile"
+    ]
+  }
+}

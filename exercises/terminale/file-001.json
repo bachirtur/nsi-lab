@@ -1,0 +1,42 @@
+{
+  "id": "file-001",
+  "title": "Implémenter une file",
+  "chapter": "chapitre-05",
+  "lesson": "lecon-files-01",
+  "type": "programming",
+  "language": "python",
+  "difficulty": 2,
+  "points": 5,
+  "statement": "Complétez la classe `File` utilisant `collections.deque` pour implémenter une file FIFO.",
+  "starterCode": "from collections import deque\n\nclass File:\n    def __init__(self):\n        self.elements = deque()\n    \n    def enfiler(self, element):\n        # À compléter\n        pass\n    \n    def defiler(self):\n        # À compléter\n        pass\n    \n    def est_vide(self):\n        # À compléter\n        pass",
+  "solution": "from collections import deque\n\nclass File:\n    def __init__(self):\n        self.elements = deque()\n    \n    def enfiler(self, element):\n        self.elements.append(element)\n    \n    def defiler(self):\n        if not self.est_vide():\n            return self.elements.popleft()\n        raise IndexError('File vide')\n    \n    def est_vide(self):\n        return len(self.elements) == 0",
+  "hints": [
+    "append() ajoute à droite (queue).",
+    "popleft() retire à gauche (tête).",
+    "C'est l'inverse d'une pile !"
+  ],
+  "tests": [
+    {
+      "name": "FIFO",
+      "code": "f = File(); f.enfiler('A'); f.enfiler('B'); assert f.defiler() == 'A'",
+      "points": 2
+    },
+    {
+      "name": "Est vide",
+      "code": "f = File(); assert f.est_vide(); f.enfiler(1); assert not f.est_vide()",
+      "points": 2
+    },
+    {
+      "name": "Défiler vide",
+      "code": "f = File();\ntry:\n    f.defiler()\n    assert False\nexcept IndexError:\n    assert True",
+      "points": 1
+    }
+  ],
+  "correction": {
+    "explanation": "Une file utilise deque : append() en queue, popleft() en tête. Cela garantit O(1) aux deux extrémités.",
+    "commonErrors": [
+      "Utiliser pop() au lieu de popleft()",
+      "Utiliser insert(0, ...) sur une liste"
+    ]
+  }
+}

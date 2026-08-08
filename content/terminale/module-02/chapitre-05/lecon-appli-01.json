@@ -1,0 +1,29 @@
+{
+  "id": "lecon-appli-01",
+  "chapter": "chapitre-05",
+  "title": "5.5 Applications",
+  "order": 5,
+  "type": "course",
+  "objectives": [
+    "Utiliser les piles pour l'évaluation d'expressions",
+    "Utiliser les files pour le parcours en largeur",
+    "Résoudre des problèmes concrets"
+  ],
+  "content": "# Applications des piles et files\n\n## 1. Vérification des parenthèses (Pile)\n\n```python\ndef est_equilibree(expr):\n    pile = []\n    ouvrantes = '({['\n    fermantes = ')}]'\n    paires = {')': '(', '}': '{', ']': '['}\n\n    for car in expr:\n        if car in ouvrantes:\n            pile.append(car)\n        elif car in fermantes:\n            if not pile or pile[-1] != paires[car]:\n                return False\n            pile.pop()\n    return len(pile) == 0\n```\n\n## 2. Parcours en largeur d'un arbre (File)\n\n```python\nfrom collections import deque\n\ndef parcours_largeur(arbre):\n    if arbre is None:\n        return []\n    resultat = []\n    file = deque([arbre])\n    while file:\n        noeud = file.popleft()\n        resultat.append(noeud.valeur)\n        if noeud.gauche:\n            file.append(noeud.gauche)\n        if noeud.droite:\n            file.append(noeud.droite)\n    return resultat\n```\n\n## 3. Conversion décimal → binaire (Pile)\n\n```python\ndef decimal_vers_binaire(n):\n    pile = []\n    while n > 0:\n        pile.append(n % 2)\n        n //= 2\n    resultat = ''\n    while pile:\n        resultat += str(pile.pop())\n    return resultat\n```\n",
+  "examples": [],
+  "activities": [],
+  "exerciseSeries": [
+    "serie-piles-02",
+    "serie-files-02"
+  ],
+  "summary": "Les piles servent pour l'évaluation d'expressions et la vérification de syntaxe. Les files servent pour les parcours en largeur et la gestion des ressources.",
+  "keywords": [
+    "application",
+    "BFS",
+    "parenthèses",
+    "binaire",
+    "expression"
+  ],
+  "duration": 55,
+  "difficulty": 3
+}

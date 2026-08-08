@@ -1,0 +1,14 @@
+{
+  "id": "serie-sql-01",
+  "title": "🟢 Série 1 — Découverte SQL",
+  "chapter": "chapitre-03",
+  "difficulty": 1,
+  "description": "Premiers pas avec SELECT, WHERE et ORDER BY.",
+  "exercises": [
+    "sql-001",
+    "sql-002",
+    "sql-003"
+  ],
+  "timeLimit": 20,
+  "totalPoints": 15
+}

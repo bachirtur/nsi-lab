@@ -1,0 +1,45 @@
+{
+  "id": "sql-005",
+  "title": "Jointure simple",
+  "chapter": "chapitre-03",
+  "lesson": "lecon-sql-04",
+  "type": "sql",
+  "language": "sql",
+  "difficulty": 3,
+  "points": 5,
+  "statement": "Affichez le nom de l'élève et la valeur de sa note en joignant les tables `eleves` et `notes`.",
+  "starterCode": "",
+  "solution": "SELECT eleves.nom, notes.valeur FROM eleves JOIN notes ON eleves.id = notes.eleve_id;",
+  "hints": [
+    "Utilisez JOIN ... ON pour lier les tables.",
+    "La clé étrangère est eleve_id dans la table notes."
+  ],
+  "tests": [
+    {
+      "name": "JOIN utilisé",
+      "check": "has_join",
+      "points": 2
+    },
+    {
+      "name": "Condition ON",
+      "check": "join_condition",
+      "points": 2
+    },
+    {
+      "name": "Colonnes",
+      "check": "columns",
+      "expected": [
+        "nom",
+        "valeur"
+      ],
+      "points": 1
+    }
+  ],
+  "correction": {
+    "explanation": "JOIN lie deux tables sur une condition d'égalité entre clé primaire et clé étrangère.",
+    "commonErrors": [
+      "Oublier ON",
+      "Inverser les clés"
+    ]
+  }
+}

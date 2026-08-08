@@ -1,0 +1,14 @@
+{
+  "id": "serie-piles-01",
+  "title": "🟢 Série 1 — Découverte des piles et files",
+  "chapter": "chapitre-05",
+  "difficulty": 1,
+  "description": "Implémentation et manipulation de piles et files.",
+  "exercises": [
+    "pile-001",
+    "file-001",
+    "pile-004"
+  ],
+  "timeLimit": 30,
+  "totalPoints": 15
+}

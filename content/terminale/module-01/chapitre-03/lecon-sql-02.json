@@ -1,0 +1,47 @@
+{
+  "id": "lecon-sql-02",
+  "chapter": "chapitre-03",
+  "title": "3.2 La commande SELECT",
+  "order": 2,
+  "type": "course",
+  "objectives": [
+    "Sélectionner des colonnes spécifiques",
+    "Utiliser les alias",
+    "Éliminer les doublons avec DISTINCT"
+  ],
+  "content": "# La commande SELECT\n\n## Sélectionner des colonnes\n\n```sql\nSELECT nom, prenom FROM eleves;\n```\n\n## Sélectionner toutes les colonnes\n\n```sql\nSELECT * FROM eleves;\n```\n\n## Alias de colonnes\n\n```sql\nSELECT nom AS nom_famille FROM eleves;\n```\n\n## Éliminer les doublons\n\n```sql\nSELECT DISTINCT classe FROM eleves;\n```\n\n## Clause WHERE\n\n```sql\nSELECT * FROM eleves WHERE classe = 'Terminale';\n```\n\n## Opérateurs de comparaison\n\n- `=` : égal\n- `<>` ou `!=` : différent\n- `<`, `>`, `<=`, `>=`\n- `BETWEEN`, `IN`, `LIKE`\n",
+  "examples": [
+    {
+      "title": "Sélection avec condition",
+      "code": "SELECT nom, prenom FROM eleves WHERE moyenne > 10;",
+      "explanation": "Affiche le nom et prénom des élèves ayant une moyenne strictement supérieure à 10."
+    },
+    {
+      "title": "Recherche avec LIKE",
+      "code": "SELECT * FROM eleves WHERE nom LIKE 'D%';",
+      "explanation": "Affiche tous les élèves dont le nom commence par D."
+    }
+  ],
+  "activities": [
+    {
+      "title": "À vous de jouer",
+      "type": "sql",
+      "instruction": "Écrivez une requête pour afficher les prénoms distincts des élèves.",
+      "solution": "SELECT DISTINCT prenom FROM eleves;"
+    }
+  ],
+  "exerciseSeries": [
+    "serie-sql-01"
+  ],
+  "summary": "SELECT permet d'extraire des données. WHERE filtre les résultats. DISTINCT élimine les doublons. Les alias renomment les colonnes.",
+  "keywords": [
+    "SELECT",
+    "WHERE",
+    "DISTINCT",
+    "AS",
+    "LIKE",
+    "BETWEEN"
+  ],
+  "duration": 45,
+  "difficulty": 2
+}
