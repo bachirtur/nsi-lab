@@ -1,0 +1,2054 @@
+{
+  "id": "lecon-01",
+  "chapter": "chapitre-01",
+  "title": "Paradigmes de programmation : introduction",
+  "order": 1,
+  "type": "course",
+  "objectives": ["initier l'élève à la programmation", "comprendre les étapes de la programmation"],
+  "content": "
+  <!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSI Terminale — Révision : Les bases avec Python</title>
+<script>
+window.MathJax = { tex: { inlineMath: [['$', '$']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+<style>
+:root{
+  --green:#3aa757;
+  --green-dark:#2e8a46;
+  --blue:#2f6fed;
+  --blue-light:#eaf1ff;
+  --bg:#f5f7f6;
+  --sidebar-bg:#ffffff;
+  --border:#e2e6e4;
+  --text:#22292a;
+  --muted:#6b7573;
+  --code-bg:#282c34;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--text); display:flex; min-height:100vh;
+}
+/* ---------- Sidebar ---------- */
+#sidebar{
+  width:300px; flex-shrink:0; background:var(--sidebar-bg);
+  border-right:1px solid var(--border); padding:18px 0 60px 0;
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+}
+#sidebar .brand{
+  display:flex; align-items:center; gap:8px; font-weight:700; font-size:1.05rem;
+  padding:0 18px 16px 18px; border-bottom:1px solid var(--border); margin-bottom:10px;
+  color:var(--green-dark);
+}
+#sidebar .brand span.dot{font-size:1.3rem;}
+#sidebar ul{list-style:none; margin:0; padding:0;}
+#sidebar li.nav-h2{margin:2px 0;}
+#sidebar a.nav-link{
+  display:block; padding:9px 18px; color:var(--text); text-decoration:none;
+  font-size:0.93rem; border-left:3px solid transparent; transition:.15s;
+}
+#sidebar li.nav-h2 > a.nav-link{font-weight:600;}
+#sidebar ul.nav-sub a.nav-link{
+  padding:7px 18px 7px 34px; font-size:0.87rem; color:var(--muted);
+}
+#sidebar a.nav-link:hover{background:var(--blue-light); color:var(--blue);}
+#sidebar a.nav-link.active{
+  background:var(--blue-light); color:var(--blue); border-left-color:var(--blue); font-weight:600;
+}
+#toggle-sidebar{display:none;}
+
+/* ---------- Main ---------- */
+#main{flex:1; min-width:0; padding:36px 48px 120px 48px; max-width:980px;}
+h1.course-title{
+  font-size:1.9rem; margin:0 0 28px 0; padding-bottom:14px; border-bottom:3px solid var(--green);
+  color:var(--green-dark);
+}
+section.h2-section{margin-bottom:10px;}
+section.h2-section h2{
+  display:flex; align-items:center; gap:10px; font-size:1.35rem; margin:46px 0 18px 0;
+  color:#1c3b2b; padding-bottom:8px; border-bottom:1px solid var(--border);
+}
+.h2-bar{width:8px; height:24px; background:var(--green); border-radius:3px; display:inline-block;}
+.h3-section h3{
+  font-size:1.08rem; margin:30px 0 12px 0; color:var(--blue); display:flex; align-items:center; gap:6px;
+}
+.md-block{font-size:0.98rem; line-height:1.65; margin:10px 0;}
+.md-block p{margin:8px 0;}
+.md-block table{border-collapse:collapse; margin:14px 0; font-size:0.92rem;}
+.md-block table th, .md-block table td{border:1px solid var(--border); padding:6px 12px; text-align:center;}
+.md-block table th{background:#f0f2f0;}
+.md-block code{background:#eef0ee; padding:1px 6px; border-radius:4px; font-family:"Fira Code",monospace; font-size:0.88em; color:#b5407a;}
+.md-block iframe{max-width:100%; border-radius:8px; border:1px solid var(--border); margin:10px 0;}
+.md-block strong{color:#1c3b2b;}
+
+/* Exercise callout boxes (from alert-info) */
+.exo-box{
+  background:var(--blue-light); border-left:5px solid var(--blue); border-radius:6px;
+  padding:14px 18px; margin:16px 0; font-size:0.96rem; line-height:1.6;
+}
+.exo-box strong:first-child{color:var(--blue); font-size:1.02rem;}
+.exo-box ul{margin:6px 0 0 0; padding-left:22px;}
+
+/* ---------- Code cells ---------- */
+.code-cell{
+  border:1px solid var(--border); border-radius:10px; margin:16px 0 26px 0;
+  overflow:hidden; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.code-cell.verif-cell{border-color:#bfe3c8;}
+.cell-badge{
+  display:inline-block; font-size:0.74rem; font-weight:600; letter-spacing:.02em;
+  color:#fff; background:#5b6a68; padding:4px 12px; text-transform:uppercase;
+}
+.cell-badge.verif{background:var(--green-dark);}
+.cm-wrapper{background:var(--code-bg);}
+.code-editor{
+  width:100%; min-height:60px; background:var(--code-bg); color:#e6e6e6; border:none;
+  font-family:"Fira Code","Consolas",monospace; font-size:0.92rem; padding:14px 16px;
+  resize:vertical; line-height:1.5; outline:none; tab-size:4;
+}
+.cell-toolbar{
+  display:flex; gap:8px; padding:8px 12px; background:#f7f8f7; border-top:1px solid var(--border);
+}
+.cell-toolbar button{
+  border:none; border-radius:6px; padding:6px 14px; font-size:0.85rem; cursor:pointer;
+  font-weight:600; transition:.15s;
+}
+.btn-run{background:var(--green); color:#fff;}
+.btn-run:hover{background:var(--green-dark);}
+.btn-reset{background:#e7e9e7; color:#444;}
+.btn-reset:hover{background:#d8dad8;}
+.cell-output{
+  font-family:"Fira Code","Consolas",monospace; font-size:0.87rem; white-space:pre-wrap;
+  padding:0 16px; color:#22292a; background:#fbfcfb;
+}
+.cell-output:not(:empty){padding:12px 16px; border-top:1px solid var(--border);}
+.cell-output .err{color:#c0392b;}
+.cell-output .ok{color:var(--green-dark); font-weight:600;}
+
+/* Pyodide loading banner */
+#pyodide-status{
+  position:fixed; bottom:16px; right:16px; background:#22292a; color:#fff; padding:10px 18px;
+  border-radius:8px; font-size:0.85rem; z-index:999; box-shadow:0 4px 12px rgba(0,0,0,.2);
+  display:flex; align-items:center; gap:10px;
+}
+#pyodide-status .spin{
+  width:14px; height:14px; border:2px solid #666; border-top-color:#3aa757; border-radius:50%;
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+#pyodide-status.ready{background:var(--green-dark);}
+
+@media (max-width: 900px){
+  #sidebar{position:fixed; left:-300px; z-index:200; transition:.2s; box-shadow:0 0 30px rgba(0,0,0,.15);}
+  #sidebar.open{left:0;}
+  #main{padding:20px 16px 100px 16px;}
+  #toggle-sidebar{
+    display:block; position:fixed; top:14px; left:14px; z-index:210; background:var(--green);
+    color:#fff; border:none; border-radius:8px; padding:8px 12px; font-size:1.1rem; cursor:pointer;
+  }
+}
+</style>
+</head>
+<body>
+<button id="toggle-sidebar" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+<nav id="sidebar">
+  <div class="brand"><span class="dot">🐍</span> NSI Terminale — Python</div>
+  <ul>
+<li class="nav-h2"><a href="#1-nombres-et-calculs" class="nav-link" data-target="1-nombres-et-calculs">1- Nombres et calculs</a>
+</li>
+<li class="nav-h2"><a href="#2-variables-et-affectations" class="nav-link" data-target="2-variables-et-affectations">2- Variables et affectations</a>
+</li>
+<li class="nav-h2"><a href="#3-chaines-de-caracteres" class="nav-link" data-target="3-chaines-de-caracteres">3- Chaînes de caractères</a>
+<ul class="nav-sub">
+<li><a href="#iterer-sur-les-iterables-la-boucle-for-in" class="nav-link" data-target="iterer-sur-les-iterables-la-boucle-for-in">🖊️  Itérer sur les itérables : la boucle for ... in ...</a></li>
+<li><a href="#l-indentation" class="nav-link" data-target="l-indentation">🖊️  L&#x27;indentation</a></li>
+<li><a href="#iterer-sur-une-liste" class="nav-link" data-target="iterer-sur-une-liste">🖊️Itérer sur une liste</a></li>
+<li><a href="#utilisation-avancee-de-l-objet-range" class="nav-link" data-target="utilisation-avancee-de-l-objet-range">🖊️ Utilisation avancée de l&#x27;objet range()</a></li>
+<li><a href="#une-situation-classique-la-double-boucle" class="nav-link" data-target="une-situation-classique-la-double-boucle">🖊️Une situation classique : la double boucle</a></li>
+<li><a href="#exercices-sur-la-boucle-while" class="nav-link" data-target="exercices-sur-la-boucle-while">🖊️Exercices sur la boucle while</a></li>
+<li><a href="#exercice-2" class="nav-link" data-target="exercice-2">🖊️  Exercice 2 :</a></li>
+<li><a href="#instructions-conditionnelles" class="nav-link" data-target="instructions-conditionnelles">🖊️ Instructions conditionnelles:</a></li>
+<li><a href="#l-evaluation-de-la-condition" class="nav-link" data-target="l-evaluation-de-la-condition">L&#x27;évaluation de la condition</a></li>
+<li><a href="#les-cas-multiples-utilisation-de-elif" class="nav-link" data-target="les-cas-multiples-utilisation-de-elif">🖊️Les cas multiples : utilisation de elif</a></li>
+<li><a href="#exercice-1" class="nav-link" data-target="exercice-1">🖊️Exercice 1</a></li>
+<li><a href="#serie-la-programmation-defensive" class="nav-link" data-target="serie-la-programmation-defensive">🖊️  Série La programmation défensive:</a></li>
+<li><a href="#des-assert-pour-securiser-le-code" class="nav-link" data-target="des-assert-pour-securiser-le-code">🖊️  des assert pour sécuriser le code</a></li>
+<li><a href="#exercice-1-les-bons-d-achat" class="nav-link" data-target="exercice-1-les-bons-d-achat">🖊️  Exercice 1 : les bons d&#x27;achat</a></li>
+<li><a href="#exercice-2-decoration-d-un-texte" class="nav-link" data-target="exercice-2-decoration-d-un-texte">🖊️ Exercice 2 : décoration d&#x27;un texte</a></li>
+<li><a href="#exercice-3-epeler-un-texte" class="nav-link" data-target="exercice-3-epeler-un-texte">🖊️ Exercice 3 : épeler un texte</a></li>
+<li><a href="#exercice-4-le-verlan-et-les-palindromes" class="nav-link" data-target="exercice-4-le-verlan-et-les-palindromes">🖊️ Exercice 4 : le verlan et les palindromes</a></li>
+<li><a href="#exercice-5-des-calculs" class="nav-link" data-target="exercice-5-des-calculs">🖊️ Exercice 5 : des calculs</a></li>
+<li><a href="#exercice-6-le-bulletin-trimestriel" class="nav-link" data-target="exercice-6-le-bulletin-trimestriel">🖊️ Exercice 6 : le bulletin trimestriel</a></li>
+<li><a href="#exercice-6-le-bulletin-trimestriel-2" class="nav-link" data-target="exercice-6-le-bulletin-trimestriel-2">🖊️ Exercice 6 : le bulletin trimestriel</a></li>
+<li><a href="#exercice-7-compter-les-voyelles" class="nav-link" data-target="exercice-7-compter-les-voyelles">🖊️ Exercice 7 : compter les voyelles</a></li>
+<li><a href="#creer-votre-docstings" class="nav-link" data-target="creer-votre-docstings">🖊️  Créer votre docstings</a></li>
+<li><a href="#le-module-doctest" class="nav-link" data-target="le-module-doctest">🖊️  Le module doctest</a></li>
+</ul>
+</li>
+  </ul>
+</nav>
+<main id="main">
+<h1 class="course-title">Révision : Les bases avec Python</h1>
+<section class="h2-section" id="1-nombres-et-calculs"><h2><span class="h2-bar"></span>1- Nombres et calculs</h2>
+<div class="md-block"><p>Python permet d'effectuer tout type de calcul, comme une calculatrice ordinaire.</p></div>
+<div class="md-block"><p><B> La somme </B></p></div>
+
+<div class="code-cell" id="cell1" data-original="5 + 8">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell1">5 + 8</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell1')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell1')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell1"></div>
+</div>
+<div class="md-block"><p>Exécuter le calcul précédent en vous plaçant dans la cellule puis cliquer sur le bouton Exécuter situé plus haut.</p></div>
+<div class="md-block"><p><B> Le produit </B></p></div>
+<div class="md-block"><p>Les règles de priorité des calculs sont les mêmes qu'en mathématiques. On utilise des parenthèses lorsqu'on a besoin de changer l'ordre de priorité. Le symbole de la multiplication est * (afin qu'il n'y ait pas de confusion avec la lettre x).</p></div>
+<div class="md-block"><div class="exo-box"><strong>Exercice 1 : </strong> Dans une école, il y a trois classes : <ul>
+    <li>Classe A : 32 élèves</li>
+    <li>Classe B : 27 élèves</li>
+    <li>Classe C : 34 élèves</li>
+</ul>  <br> 
+Chaque élève de l'école doit recevoir 192 photocopies.<br>
+Combien faut-il prévoir de photocopies en tout ?
+</div></div>
+<div class="md-block"><p>Écrire dans la cellule suivante le calcul permettant de répondre à la question et l'exécuter.</p></div>
+
+<div class="code-cell" id="cell2" data-original="(32+27+34)*192">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell2">(32+27+34)*192</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell2')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell2')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell2"></div>
+</div>
+<div class="md-block"><p>Une des particularités du langage Python est que le nombre de chiffres n'est pas limité pour les nombres entiers.</p></div>
+<div class="md-block"><div class="exo-box"><strong>Exercice 2 : </strong> Calculer le produit de deux nombres à 10 chiffres. 
+</div></div>
+
+<div class="code-cell" id="cell3" data-original="102457896244*1234587621578">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell3">102457896244*1234587621578</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell3')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell3')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell3"></div>
+</div>
+<div class="md-block"><p>Pour calculer une <strong>puissance</strong>, on utilise la notation ** . Par exemple pour calculer 7 au carré, on écrira 7**2.</p></div>
+
+<div class="code-cell" id="cell4" data-original="7**2">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell4">7**2</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell4')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell4')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell4"></div>
+</div>
+<div class="md-block"><div class="exo-box"><strong>Exercice 3 : </strong> Calculer 6 au cube de deux manières différentes : en utilisant une puissance et sans utiliser (**). 
+</div></div>
+
+<div class="code-cell" id="cell5" data-original="6**3">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell5">6**3</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell5')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell5')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell5"></div>
+</div>
+
+<div class="code-cell" id="cell6" data-original="6*6*6">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell6">6*6*6</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell6')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell6')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell6"></div>
+</div>
+<div class="md-block"><p><strong>La division</strong></p></div>
+<div class="md-block"><p>Il existe deux types de division en Python : <br>
+* la <B> division entière </B> avec l'opérateur // qui permet d'obtenir la partie entière du quotient de la division.<br>
+* la <B> division flottante </B> avec l'opérateur / qui permet d'avoir le quotient sous forme décimale.<br></p></div>
+<div class="md-block"><p>L'opérateur % permet d'obtenir le reste dans une division entière.</p></div>
+<div class="md-block"><p><EM> Exécuter les trois cellules suivantes. </EM></p></div>
+
+<div class="code-cell" id="cell7" data-original="13 437 5">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell7">13 437 5</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell7')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell7')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell7"></div>
+</div>
+
+<div class="code-cell" id="cell8" data-original="13 / 5">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell8">13 / 5</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell8')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell8')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell8"></div>
+</div>
+
+<div class="code-cell" id="cell9" data-original="13 % 5">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell9">13 % 5</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell9')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell9')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell9"></div>
+</div>
+<div class="md-block"><div class="exo-box"><strong>Exercice 4 : </strong> En utilisant les opérateurs précédents, écrire 437 secondes au format minutes:secondes.
+</div></div>
+<div class="md-block"><p><EM> Nombre de minutes : </EM></p></div>
+
+<div class="code-cell" id="cell10" data-original="437 // 60">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell10">437 // 60</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell10')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell10')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell10"></div>
+</div>
+<div class="md-block"><p><EM> Nombre de secondes : </EM></p></div>
+
+<div class="code-cell" id="cell11" data-original="437 % 60">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell11">437 % 60</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell11')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell11')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell11"></div>
+</div>
+<div class="md-block"><p><B> Les types de nombres et arrondis </B></p></div>
+<div class="md-block"><p>Il existe deux types de nombres en Python : les <strong>entiers</strong> (<code>int</code>, abréviation de "integer") et les <strong>flottants</strong> (<code>float</code>, abréviation de "floating number" qui signie "nombre à virgule flottante"). </p>
+<p>La fonction <code>type()</code> indique le type du nombre qu'on lui donne en paramètre.</p></div>
+<div class="md-block"><p><EM> Exécuter les deux cellules suivantes, donnant le type de nombre entre parenthèses. </EM></p></div>
+
+<div class="code-cell" id="cell12" data-original="type(4)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell12">type(4)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell12')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell12')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell12"></div>
+</div>
+
+<div class="code-cell" id="cell13" data-original="type(5.6)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell13">type(5.6)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell13')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell13')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell13"></div>
+</div>
+<div class="md-block"><p>Pour donner l'arrondi d'un nombre réel avec une précision donnée, on utilise la commande "round".</p></div>
+<div class="md-block"><p><EM> Exécuter les cellules suivantes. </EM></p></div>
+
+<div class="code-cell" id="cell14" data-original="round(1/3,4)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell14">round(1/3,4)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell14')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell14')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell14"></div>
+</div>
+
+<div class="code-cell" id="cell15" data-original="round(28/15,6)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell15">round(28/15,6)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell15')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell15')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell15"></div>
+</div>
+<div class="md-block"><p><B> Le nombre $\pi$ </B></p></div>
+<div class="md-block"><p>Le nombre $\pi$ est défini dans la bibliothèque math de Python à l'aide de la commande pi.
+Pour y avoir accès, il faut commencer par importer cette bibliothèque comme suit.</p></div>
+<div class="md-block"><p><EM> Exécuter la cellule suivante. </EM></p></div>
+
+<div class="code-cell" id="cell16" data-original="from math import*
+pi">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell16">from math import*
+pi</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell16')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell16')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell16"></div>
+</div>
+<div class="md-block"><div class="exo-box"><strong>Exercice 5 </strong> : Donner une valeur approchée de $\pi$ au millième près.</div>
+
+<div class="code-cell" id="cell17" data-original="round(pi,3)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell17">round(pi,3)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell17')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell17')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell17"></div>
+</div>
+<div class="md-block"><div class="exo-box"><strong>Exercice 6 </strong> : Calculer le périmètre d'un cercle de rayon 5 unités. Donner une valeur approchée à $10^{-2}$ près.</div>
+
+<div class="code-cell" id="cell18" data-original="round(2*pi*5,2)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell18">round(2*pi*5,2)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell18')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell18')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell18"></div>
+</div>
+<div class="md-block"><p><B> Les Racines Carrées </B></p></div>
+<div class="md-block"><p>Maintenant que nous avons chargé la bibliothèque de math avec la commande "from math import*" nous allons pouvoir travailler avec des racines carrés à l'aide de la commande <B> sqrt </B>.<Br> <EM> sqrt pour square root en anglais.</EM></p></div>
+
+<div class="code-cell" id="cell19" data-original="sqrt(25)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell19">sqrt(25)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell19')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell19')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell19"></div>
+</div>
+<div class="md-block"><div class="exo-box"><strong>Exercice 7 </strong> : Soit ABC un triangle rectangle en A tel que AB = 5 et BC = 7. <br>
+    Déterminer une valeur approchée au centième près de la longueur AC.</div>
+
+<div class="code-cell" id="cell20" data-original="# AC**2= BC**2-AB **2
+round(sqrt(7**2- 5 **2),2)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell20"># AC**2= BC**2-AB **2
+round(sqrt(7**2- 5 **2),2)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell20')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell20')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell20"></div>
+</div>
+</section>
+<section class="h2-section" id="2-variables-et-affectations"><h2><span class="h2-bar"></span>2- Variables et affectations</h2>
+<div class="md-block"><p>On peut conserver ou stocker un nombre ou le résultat d'un calcul dans une <strong>variable</strong>.</p></div>
+<div class="md-block"><p><EM> Exécuter la cellule suivante. </EM></p></div>
+
+<div class="code-cell" id="cell21" data-original="a = 2    # on affecte la valeur 2 à la variable a
+b = 5
+c = a + b
+c">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell21">a = 2    # on affecte la valeur 2 à la variable a
+b = 5
+c = a + b
+c</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell21')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell21')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell21"></div>
+</div>
+<div class="md-block"><p>Le contenu des variables persiste en mémoire :</p></div>
+<div class="md-block"><p><EM> Exécuter la cellule suivante. </EM></p></div>
+
+<div class="code-cell" id="cell22" data-original="a=9">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell22">a=9</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell22')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell22')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell22"></div>
+</div>
+
+<div class="code-cell" id="cell23" data-original="a">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell23">a</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell23')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell23')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell23"></div>
+</div>
+<div class="md-block"><p>Afficher une variable qui n'a pas encore été définie ou déclarée provoque une erreur :</p></div>
+
+<div class="code-cell" id="cell24" data-original="d">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell24">d</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell24')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell24')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell24"></div>
+</div>
+<div class="md-block"><p>Une variable peut aussi changer de valeur au fur et à mesure de l'exécution de l'algorithme.</p></div>
+<div class="md-block"><p><EM> Exécuter la cellule suivante. </EM></p></div>
+
+<div class="code-cell" id="cell25" data-original="r = 5
+s = 2*r
+s = s**2
+s = s - 5
+s">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell25">r = 5
+s = 2*r
+s = s**2
+s = s - 5
+s</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell25')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell25')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell25"></div>
+</div>
+<div class="md-block"><p>Compléter le tableau suivant, donnant la valeur de la variable s au fur et à mesure de l'exécution de l'algorithme. Remplacer les points d'interrogation par la valeur de s.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Instructions</th>
+<th style="text-align: center;">valeur de s</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">r = 5</td>
+<td style="text-align: center;">--</td>
+</tr>
+<tr>
+<td style="text-align: left;">s = 2*r</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">s = s**2</td>
+<td style="text-align: center;">100</td>
+</tr>
+<tr>
+<td style="text-align: left;">s = s - 5</td>
+<td style="text-align: center;">95</td>
+</tr>
+</tbody>
+</table></div>
+<div class="md-block"><div class="exo-box"><strong>Exercice 8 : </strong> On considère l'algorithme ci-dessous. <br>
+    1. Que fait ce programme ? <br>
+    2. Écrire dans le tableau ci-dessous, les valeurs des variables a et b au fur et à mesure de l'algorithme.<br>
+    3. Vérifier en affichant les valeurs de a et b à la fin de l'algorithme.</div>
+
+<div class="code-cell" id="cell26" data-original="a = 7
+b = 4
+a = a + b
+b = a - b
+a = a - b">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell26">a = 7
+b = 4
+a = a + b
+b = a - b
+a = a - b</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell26')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell26')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell26"></div>
+</div>
+<div class="md-block"><p>Réponse à la question 1 :</p></div>
+<div class="md-block"><p>(remplacer les points d'interrogation par les valeurs obtenues).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Instructions</th>
+<th style="text-align: center;">valeur de a</th>
+<th style="text-align: center;">valeur de b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">a = 7</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">b = 4</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">a = a + b</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">b = a - b</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">7</td>
+</tr>
+<tr>
+<td style="text-align: left;">a = a - b</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">7</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="code-cell" id="cell27" data-original="a">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell27">a</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell27')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell27')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell27"></div>
+</div>
+
+<div class="code-cell" id="cell28" data-original="b">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell28">b</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell28')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell28')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell28"></div>
+</div>
+</section>
+<section class="h2-section" id="3-chaines-de-caracteres"><h2><span class="h2-bar"></span>3- Chaînes de caractères</h2>
+<div class="md-block"><p style="text-align:justify;">La fonction <code>print()</code> permet d'afficher une chaîne de caractères ("string" en anglais).<br>
+La chaîne de caractère que l'on souhaite afficher doit être écrite entre guillemets (simples ' double " ou triples '''). Sans guillemets, c'est le contenu de la variable dont le nom est transmis en paramètre qui sera affiché.</p></div>
+<div class="md-block"><p><EM> Exécuter la cellule suivante. </EM></p></div>
+
+<div class="code-cell" id="cell29" data-original="bonjour = 8
+print(&quot;bonjour&quot;)
+print(bonjour)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell29">bonjour = 8
+print(&quot;bonjour&quot;)
+print(bonjour)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell29')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell29')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell29"></div>
+</div>
+<div class="md-block"><div class="exo-box"><strong>Exercice 9 : </strong> Ecrire une ligne de programme qui affiche le message "Au revoir!". 
+</div></div>
+<div class="md-block"><p>Une variable peut contenir une chaîne de caractères :</p></div>
+<div class="md-block"><p><EM> Exécuter la cellule suivante. </EM></p></div>
+
+<div class="code-cell" id="cell30" data-original="message = &quot;coucou&quot;
+print(message)
+type(message)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell30">message = &quot;coucou&quot;
+print(message)
+type(message)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell30')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell30')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell30"></div>
+</div>
+<div class="md-block"><p>On peut afficher plusieurs chaînes de caractères à l'aide d'une seule instruction <code>print()</code>. Par défaut, un espace sera inséré entre chaque chaîne :</p></div>
+<div class="md-block"><p><EM> Exécuter la cellule suivante. </EM></p></div>
+
+<div class="code-cell" id="cell31" data-original="age = 15
+print(&quot;Vous avez&quot;,age,&quot;ans.&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell31">age = 15
+print(&quot;Vous avez&quot;,age,&quot;ans.&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell31')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell31')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell31"></div>
+</div>
+<div class="md-block"><p>Plutôt qu'un espace, on peut insérer :
+* un autre caractère (par exemple un point-virgule)
+* plusieurs caractères (par exemple " et ")
+* aucun caractère (les chaînes seront "collées")
+* un saut de ligne (que l'on écrit "\n", et qui signifie "new line")</p></div>
+<div class="md-block"><p><EM> Exécuter la cellule suivante. </EM></p></div>
+
+<div class="code-cell" id="cell32" data-original="print(&quot;Victor&quot;,&quot;Léa&quot;,&quot;Ninon&quot;,sep=&quot;;&quot;)
+print(&quot;Victor&quot;,&quot;Léa&quot;,&quot;Ninon&quot;,sep=&quot; et &quot;)
+print(&quot;Victor&quot;,&quot;Léa&quot;,&quot;Ninon&quot;,sep=&quot;&quot;)
+print(&quot;Victor&quot;,&quot;Léa&quot;,&quot;Ninon&quot;,sep=&quot;\n&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell32">print(&quot;Victor&quot;,&quot;Léa&quot;,&quot;Ninon&quot;,sep=&quot;;&quot;)
+print(&quot;Victor&quot;,&quot;Léa&quot;,&quot;Ninon&quot;,sep=&quot; et &quot;)
+print(&quot;Victor&quot;,&quot;Léa&quot;,&quot;Ninon&quot;,sep=&quot;&quot;)
+print(&quot;Victor&quot;,&quot;Léa&quot;,&quot;Ninon&quot;,sep=&quot;\n&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell32')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell32')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell32"></div>
+</div>
+<div class="md-block"><div class="exo-box"><strong>Exercice 10 : </strong> Ecrire une instruction qui affiche une liste de courses séparées par un tiret. 
+</div></div>
+
+<div class="code-cell" id="cell33" data-original="print(&quot;Victor&quot;,&quot;Léa&quot;,&quot;Ninon&quot;,sep=&quot;-&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell33">print(&quot;Victor&quot;,&quot;Léa&quot;,&quot;Ninon&quot;,sep=&quot;-&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell33')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell33')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell33"></div>
+</div>
+<div class="md-block"><p>Si on ne souhaite pas passer à la ligne suivante pour la prochaine instruction <code>print</code>, on peut l'indiquer au moyen du paramètre <code>end=""</code> :</p></div>
+<div class="md-block"><p><EM> Exécuter la cellule suivante. </EM></p></div>
+
+<div class="code-cell" id="cell34" data-original="print(&quot;Victor&quot;)
+print(&quot;Léa&quot;)
+print(&quot;Ninon&quot;)
+print(&quot;Victor&quot;,end=&quot;&quot;)
+print(&quot;Léa&quot;,end=&quot;&quot;)
+print(&quot;Ninon&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell34">print(&quot;Victor&quot;)
+print(&quot;Léa&quot;)
+print(&quot;Ninon&quot;)
+print(&quot;Victor&quot;,end=&quot;&quot;)
+print(&quot;Léa&quot;,end=&quot;&quot;)
+print(&quot;Ninon&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell34')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell34')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell34"></div>
+</div>
+<div class="md-block"><p>On peut concaténer (fusionner) plusieurs chaînes de caractère au moyen de l'opérateur <code>+</code> :</p></div>
+<div class="md-block"><p><EM> Exécuter la cellule suivante. </EM></p></div>
+
+<div class="code-cell" id="cell35" data-original="message1 = &quot;Bonjour &quot;
+message2 = &quot;Madame&quot;
+message3 = message1 + message2
+print(message3)
+message3+=&quot;!&quot;    # la syntaxe abrégée fonctionne aussi pour la concaténation de chaînes de caractères
+print(message3)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell35">message1 = &quot;Bonjour &quot;
+message2 = &quot;Madame&quot;
+message3 = message1 + message2
+print(message3)
+message3+=&quot;!&quot;    # la syntaxe abrégée fonctionne aussi pour la concaténation de chaînes de caractères
+print(message3)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell35')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell35')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell35"></div>
+</div>
+<div class="md-block"><p>On ne peut pas concaténer une chaîne de caractères avec une valeur numérique directement. Il faut au préalable transformer la valeur numérique en chaîne de caractères au moyen de la fonction <code>str()</code> :</p></div>
+<div class="md-block"><p><EM> Exécuter la cellule suivante. </EM></p></div>
+
+<div class="code-cell" id="cell36" data-original="âge = 25
+début = &quot;J&#x27;ai &quot;
+fin = &quot; ans.&quot;
+phrase = début + str(âge) + fin
+print(phrase)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell36">âge = 25
+début = &quot;J&#x27;ai &quot;
+fin = &quot; ans.&quot;
+phrase = début + str(âge) + fin
+print(phrase)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell36')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell36')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell36"></div>
+</div>
+<div class="md-block"><div class="exo-box"><strong>Exercice 11 : </strong> Le nombre $\dfrac{1+\sqrt{5}}{2}$ s'appelle le nombre d'or. <br>
+    Calculer une valeur approchée de ce nombre et afficher une phrase du type "Le nombre d'or vaut ..." en indiquant la précision prise et en utilisant une chaîne de caractère.
+</div></div>
+<div class="h3-section" id="iterer-sur-les-iterables-la-boucle-for-in"><h3>🖊️  Itérer sur les itérables : la boucle for ... in ...</h3></div>
+<div class="md-block"><iframe width="700" height="400" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=for%20k%20in%20'NSI'%3A%0A%20%20%20%20print%28k%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=7&heapPrimitives=nevernest&origin=opt-frontend.js&py=311&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe></div>
+
+<div class="code-cell" id="cell37" data-original="from tutor import tutor
+for k in range(5):
+    print(k)
+tutor()">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell37">from tutor import tutor
+for k in range(5):
+    print(k)
+tutor()</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell37')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell37')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell37"></div>
+</div>
+
+<div class="code-cell" id="cell38" data-original="from tutor import tutor
+for k in &#x27;NSI&#x27;:
+    print(k)
+tutor()">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell38">from tutor import tutor
+for k in &#x27;NSI&#x27;:
+    print(k)
+tutor()</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell38')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell38')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell38"></div>
+</div>
+<div class="h3-section" id="l-indentation"><h3>🖊️  L&#x27;indentation</h3></div>
+<div class="md-block"><p>Observez la différence entre l'exécution des codes suivants :</p></div>
+
+<div class="code-cell" id="cell39" data-original="for m in &#x27;NASA&#x27;:
+    print(&quot;bonjour&quot;)
+    print(&quot;au revoir&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell39">for m in &#x27;NASA&#x27;:
+    print(&quot;bonjour&quot;)
+    print(&quot;au revoir&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell39')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell39')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell39"></div>
+</div>
+
+<div class="code-cell" id="cell40" data-original="for m in &#x27;NASA&#x27;:
+   print(&quot;bonjour&quot;)
+print(&quot;au revoir&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell40">for m in &#x27;NASA&#x27;:
+   print(&quot;bonjour&quot;)
+print(&quot;au revoir&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell40')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell40')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell40"></div>
+</div>
+
+<div class="code-cell" id="cell41" data-original="for i in range(4):
+   print(&quot;bonjour&quot;)
+print(&quot;au revoir&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell41">for i in range(4):
+   print(&quot;bonjour&quot;)
+print(&quot;au revoir&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell41')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell41')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell41"></div>
+</div>
+<div class="h3-section" id="iterer-sur-une-liste"><h3>🖊️Itérer sur une liste</h3></div>
+
+<div class="code-cell" id="cell42" data-original="for jour in [&quot;lundi&quot;, &quot;mardi&quot;, &quot;mercredi&quot;, &quot;jeudi&quot;, &quot;vendredi&quot;]:
+    print(&quot;je vais au lycée le&quot;, jour)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell42">for jour in [&quot;lundi&quot;, &quot;mardi&quot;, &quot;mercredi&quot;, &quot;jeudi&quot;, &quot;vendredi&quot;]:
+    print(&quot;je vais au lycée le&quot;, jour)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell42')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell42')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell42"></div>
+</div>
+<div class="md-block"><iframe width="600" height="300" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=for%20jour%20in%20%5B%22lundi%22,%20%22mardi%22,%20%22mercredi%22,%20%22jeudi%22,%20%22vendredi%22%5D%3A%0A%20%20%20%20print%28%22je%20vais%20au%20lyc%C3%A9e%20le%22,%20jour%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=11&heapPrimitives=nevernest&origin=opt-frontend.js&py=311&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe></div>
+<div class="h3-section" id="utilisation-avancee-de-l-objet-range"><h3>🖊️ Utilisation avancée de l&#x27;objet range()</h3></div>
+
+<div class="code-cell" id="cell43" data-original="for k in range(5, 15, 2):
+    print(k)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell43">for k in range(5, 15, 2):
+    print(k)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell43')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell43')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell43"></div>
+</div>
+
+<div class="code-cell" id="cell44" data-original="type(range(5))">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell44">type(range(5))</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell44')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell44')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell44"></div>
+</div>
+
+<div class="code-cell" id="cell45" data-original="list(range(5))">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell45">list(range(5))</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell45')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell45')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell45"></div>
+</div>
+<div class="h3-section" id="une-situation-classique-la-double-boucle"><h3>🖊️Une situation classique : la double boucle</h3></div>
+
+<div class="code-cell" id="cell46" data-original="from tutor import tutor
+for a in range(1,5):
+    for b in range(1,4):
+        p = a * b
+        print(a, &#x27;*&#x27;, b, &#x27;=&#x27;, p)
+tutor()">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell46">from tutor import tutor
+for a in range(1,5):
+    for b in range(1,4):
+        p = a * b
+        print(a, &#x27;*&#x27;, b, &#x27;=&#x27;, p)
+tutor()</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell46')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell46')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell46"></div>
+</div>
+<div class="md-block"><iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=for%20a%20in%20range%281,5%29%3A%0A%20%20%20%20for%20b%20in%20range%281,4%29%3A%0A%20%20%20%20%20%20%20%20p%20%3D%20a%20*%20b%0A%20%20%20%20%20%20%20%20print%28a,%20'*',%20b,%20'%3D',%20p%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=311&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe></div>
+<div class="h3-section" id="exercices-sur-la-boucle-while"><h3>🖊️Exercices sur la boucle while</h3></div>
+
+<div class="code-cell" id="cell47" data-original="# Code A
+c = 0
+while c &lt;= 3:
+    print(&quot;ok&quot;)
+    c += 1">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell47"># Code A
+c = 0
+while c &lt;= 3:
+    print(&quot;ok&quot;)
+    c += 1</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell47')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell47')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell47"></div>
+</div>
+
+<div class="code-cell" id="cell48" data-original="# Code B
+k = 0
+while k &gt; 3:
+    print(&quot;ok&quot;)
+    k += 1
+print(&quot;fini&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell48"># Code B
+k = 0
+while k &gt; 3:
+    print(&quot;ok&quot;)
+    k += 1
+print(&quot;fini&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell48')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell48')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell48"></div>
+</div>
+
+<div class="code-cell" id="cell49" data-original="# Code C
+n = 0
+while n &lt; 4:
+    print(&quot;ok&quot;)
+    n += 2">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell49"># Code C
+n = 0
+while n &lt; 4:
+    print(&quot;ok&quot;)
+    n += 2</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell49')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell49')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell49"></div>
+</div>
+
+<div class="code-cell" id="cell50" data-original="#Que va afficher le code ci-dessous ?
+
+c = 0
+mot = &#x27;a&#x27;
+while mot != &#x27;aaaa&#x27;:
+    mot += &#x27;a&#x27;
+    c += 1
+print(c)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell50">#Que va afficher le code ci-dessous ?
+
+c = 0
+mot = &#x27;a&#x27;
+while mot != &#x27;aaaa&#x27;:
+    mot += &#x27;a&#x27;
+    c += 1
+print(c)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell50')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell50')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell50"></div>
+</div>
+<div class="h3-section" id="exercice-2"><h3>🖊️  Exercice 2 :</h3></div>
+
+<div class="code-cell" id="cell51" data-original="# Que va afficher le code ci-dessous ?
+c = 0
+mot = &#x27;a&#x27;
+while mot != &#x27;aaaa&#x27;:
+    mot += &#x27;a&#x27;
+    c += 1
+print(c)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell51"># Que va afficher le code ci-dessous ?
+c = 0
+mot = &#x27;a&#x27;
+while mot != &#x27;aaaa&#x27;:
+    mot += &#x27;a&#x27;
+    c += 1
+print(c)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell51')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell51')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell51"></div>
+</div>
+<div class="h3-section" id="instructions-conditionnelles"><h3>🖊️ Instructions conditionnelles:</h3></div>
+
+<div class="code-cell" id="cell52" data-original="#L&#x27;exemple minimal ci-dessous ne contient que le mot-clé if.
+age = 20
+if age &gt;= 18:
+    print(&quot;Tu as le droit de vote&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell52">#L&#x27;exemple minimal ci-dessous ne contient que le mot-clé if.
+age = 20
+if age &gt;= 18:
+    print(&quot;Tu as le droit de vote&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell52')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell52')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell52"></div>
+</div>
+
+<div class="code-cell" id="cell53" data-original="# La structure qu&#x27;on rencontrera le plus souvent est la structure if ... else ...
+age = 16
+if age &gt;= 18:
+    print(&quot;Tu as le droit de vote&quot;)
+else:
+    print(&quot;Désolé, il faudra attendre&quot;, 18 - age, &quot;ans avant de pouvoir voter&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell53"># La structure qu&#x27;on rencontrera le plus souvent est la structure if ... else ...
+age = 16
+if age &gt;= 18:
+    print(&quot;Tu as le droit de vote&quot;)
+else:
+    print(&quot;Désolé, il faudra attendre&quot;, 18 - age, &quot;ans avant de pouvoir voter&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell53')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell53')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell53"></div>
+</div>
+<div class="h3-section" id="l-evaluation-de-la-condition"><h3>L&#x27;évaluation de la condition</h3></div>
+
+<div class="code-cell" id="cell54" data-original="a = 2
+a == 3">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell54">a = 2
+a == 3</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell54')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell54')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell54"></div>
+</div>
+
+<div class="code-cell" id="cell55" data-original="a == 2">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell55">a == 2</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell55')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell55')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell55"></div>
+</div>
+
+<div class="code-cell" id="cell56" data-original="a != 1">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell56">a != 1</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell56')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell56')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell56"></div>
+</div>
+
+<div class="code-cell" id="cell57" data-original="a &gt; 2">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell57">a &gt; 2</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell57')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell57')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell57"></div>
+</div>
+
+<div class="code-cell" id="cell58" data-original="a &gt;= 2">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell58">a &gt;= 2</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell58')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell58')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell58"></div>
+</div>
+
+<div class="code-cell" id="cell59" data-original="a &lt;= 2">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell59">a &lt;= 2</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell59')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell59')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell59"></div>
+</div>
+
+<div class="code-cell" id="cell60" data-original="a &lt;= 5">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell60">a &lt;= 5</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell60')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell60')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell60"></div>
+</div>
+
+<div class="code-cell" id="cell61" data-original="&#x27;e&#x27; in &#x27;abracadabra&#x27;">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell61">&#x27;e&#x27; in &#x27;abracadabra&#x27;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell61')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell61')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell61"></div>
+</div>
+
+<div class="code-cell" id="cell62" data-original="&#x27;b&#x27; in &#x27;abracadabra&#x27;">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell62">&#x27;b&#x27; in &#x27;abracadabra&#x27;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell62')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell62')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell62"></div>
+</div>
+
+<div class="code-cell" id="cell63" data-original="&#x27;A&#x27; not in &#x27;abracadabra&#x27;">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell63">&#x27;A&#x27; not in &#x27;abracadabra&#x27;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell63')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell63')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell63"></div>
+</div>
+
+<div class="code-cell" id="cell64" data-original="not True">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell64">not True</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell64')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell64')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell64"></div>
+</div>
+
+<div class="code-cell" id="cell65" data-original="b = 20
+b &gt; 15 and b &lt; 30">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell65">b = 20
+b &gt; 15 and b &lt; 30</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell65')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell65')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell65"></div>
+</div>
+
+<div class="code-cell" id="cell66" data-original="b &gt; 2000 or b &lt; 30">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell66">b &gt; 2000 or b &lt; 30</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell66')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell66')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell66"></div>
+</div>
+
+<div class="code-cell" id="cell67" data-original="# Pour tester si un nombre n est divisible par un nombre d, on teste si le reste de la division euclidienne de n par d est égal à 0 :
+n = 17
+if n % 2 == 0:
+    print(n, &quot;est un nombre pair&quot;)
+else:
+    print(n, &quot;est un nombre impair&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell67"># Pour tester si un nombre n est divisible par un nombre d, on teste si le reste de la division euclidienne de n par d est égal à 0 :
+n = 17
+if n % 2 == 0:
+    print(n, &quot;est un nombre pair&quot;)
+else:
+    print(n, &quot;est un nombre impair&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell67')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell67')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell67"></div>
+</div>
+<div class="h3-section" id="les-cas-multiples-utilisation-de-elif"><h3>🖊️Les cas multiples : utilisation de elif</h3></div>
+
+<div class="code-cell" id="cell68" data-original="moyenne = 13
+
+if moyenne &lt; 8:
+    print(&quot;raté&quot;)
+else:
+    if moyenne &lt; 10:
+        print(&quot;repêchage&quot;)
+    else:
+        if moyenne &lt; 12:
+            print(&quot;admis&quot;)
+        else:
+            if moyenne &lt; 14:
+                print(&quot;mention AB&quot;)
+            else:
+                if moyenne &lt; 16:
+                    print(&quot;mention B&quot;)
+                else:
+                    print(&quot;mention TB&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell68">moyenne = 13
+
+if moyenne &lt; 8:
+    print(&quot;raté&quot;)
+else:
+    if moyenne &lt; 10:
+        print(&quot;repêchage&quot;)
+    else:
+        if moyenne &lt; 12:
+            print(&quot;admis&quot;)
+        else:
+            if moyenne &lt; 14:
+                print(&quot;mention AB&quot;)
+            else:
+                if moyenne &lt; 16:
+                    print(&quot;mention B&quot;)
+                else:
+                    print(&quot;mention TB&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell68')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell68')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell68"></div>
+</div>
+<div class="md-block"><p>Mais cela est vite long et peu lisible, et les différents niveaux d'indentation peuvent devenir piégeux.</p>
+<p>Il existe alors une instruction qui contracte else et if : elif (sinon si).</p>
+<p>Ce code devient alors</p></div>
+
+<div class="code-cell" id="cell69" data-original="moyenne = 7
+
+if moyenne &lt; 8:
+    print(&quot;raté&quot;)
+elif moyenne &lt; 10:
+    print(&quot;repêchage&quot;)
+elif moyenne &lt; 12:
+    print(&quot;admis&quot;)
+elif moyenne &lt; 14:
+    print(&quot;mention AB&quot;)
+elif moyenne &lt; 16:
+    print(&quot;mention B&quot;)
+else:
+    print(&quot;mention TB&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell69">moyenne = 7
+
+if moyenne &lt; 8:
+    print(&quot;raté&quot;)
+elif moyenne &lt; 10:
+    print(&quot;repêchage&quot;)
+elif moyenne &lt; 12:
+    print(&quot;admis&quot;)
+elif moyenne &lt; 14:
+    print(&quot;mention AB&quot;)
+elif moyenne &lt; 16:
+    print(&quot;mention B&quot;)
+else:
+    print(&quot;mention TB&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell69')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell69')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell69"></div>
+</div>
+<div class="h3-section" id="exercice-1"><h3>🖊️Exercice 1</h3></div>
+
+<div class="code-cell" id="cell70" data-original="n1 = int(input(&#x27;Entrez un nombre n1&#x27;))
+n2 = int(input(&#x27;Entrez un nombre n2&#x27;))
+print(n1,n2)
+if n1&gt; n2:
+    print(&quot;le plus grand nombre est&quot;,n1)
+else:
+     print(&quot;le plus grand nombre est&quot;,n2)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell70">n1 = int(input(&#x27;Entrez un nombre n1&#x27;))
+n2 = int(input(&#x27;Entrez un nombre n2&#x27;))
+print(n1,n2)
+if n1&gt; n2:
+    print(&quot;le plus grand nombre est&quot;,n1)
+else:
+     print(&quot;le plus grand nombre est&quot;,n2)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell70')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell70')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell70"></div>
+</div>
+<div class="h3-section" id="serie-la-programmation-defensive"><h3>🖊️  Série La programmation défensive:</h3></div>
+<div class="h3-section" id="des-assert-pour-securiser-le-code"><h3>🖊️  des assert pour sécuriser le code</h3></div>
+<div class="h3-section" id="exercice-1-les-bons-d-achat"><h3>🖊️  Exercice 1 : les bons d&#x27;achat</h3></div>
+
+<div class="code-cell" id="cell71" data-original="# Écrire ici le code de la fonction
+def bon_achat(depense):
+    if depense &gt;= 100:
+        return 30
+    elif depense &gt;= 20:
+        return 10
+    else:
+        return 0">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell71"># Écrire ici le code de la fonction
+def bon_achat(depense):
+    if depense &gt;= 100:
+        return 30
+    elif depense &gt;= 20:
+        return 10
+    else:
+        return 0</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell71')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell71')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell71"></div>
+</div>
+
+<div class="code-cell" id="cell72" data-original="# tester ici
+bon_achat(100)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell72"># tester ici
+bon_achat(100)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell72')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell72')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell72"></div>
+</div>
+
+<div class="code-cell" id="cell73" data-original="# tester ici
+bon_achat(50)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell73"># tester ici
+bon_achat(50)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell73')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell73')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell73"></div>
+</div>
+
+<div class="code-cell" id="cell74" data-original="# tester ici
+bon_achat(15)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell74"># tester ici
+bon_achat(15)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell74')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell74')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell74"></div>
+</div>
+
+<div class="code-cell verif-cell" id="cell75" data-original="# vérification 
+assert bon_achat(100) == 30, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert bon_achat(50) == 10, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert bon_achat(15) == 0, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;">
+  <span class="cell-badge verif">✔ Vérification</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell75"># vérification 
+assert bon_achat(100) == 30, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert bon_achat(50) == 10, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert bon_achat(15) == 0, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell75')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell75')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell75"></div>
+</div>
+<div class="h3-section" id="exercice-2-decoration-d-un-texte"><h3>🖊️ Exercice 2 : décoration d&#x27;un texte</h3></div>
+
+<div class="code-cell" id="cell76" data-original="# Écrire ici le code de la fonction
+def decoration(mot):
+    return &quot;***&quot;+ mot + &quot;***&quot;">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell76"># Écrire ici le code de la fonction
+def decoration(mot):
+    return &quot;***&quot;+ mot + &quot;***&quot;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell76')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell76')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell76"></div>
+</div>
+
+<div class="code-cell" id="cell77" data-original="# tester ici
+decoration(&quot;Alice&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell77"># tester ici
+decoration(&quot;Alice&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell77')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell77')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell77"></div>
+</div>
+
+<div class="code-cell" id="cell78" data-original="# tester ici
+decoration(&quot;Joyeux Noël&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell78"># tester ici
+decoration(&quot;Joyeux Noël&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell78')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell78')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell78"></div>
+</div>
+
+<div class="code-cell verif-cell" id="cell79" data-original="# vérification 
+assert decoration(&quot;Alice&quot;) == &#x27;*** alice ***&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert decoration(&quot;Joyeux Noël&quot;) == &#x27;*** Joyeux Noël ***&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;">
+  <span class="cell-badge verif">✔ Vérification</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell79"># vérification 
+assert decoration(&quot;Alice&quot;) == &#x27;*** alice ***&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert decoration(&quot;Joyeux Noël&quot;) == &#x27;*** Joyeux Noël ***&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell79')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell79')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell79"></div>
+</div>
+<div class="h3-section" id="exercice-3-epeler-un-texte"><h3>🖊️ Exercice 3 : épeler un texte</h3></div>
+
+<div class="code-cell" id="cell80" data-original="# Écrire ici le code de la fonction
+# définir la fonction épeler (mot)
+def épeler(mot):
+    resultat=&quot;&quot;
+    for lettre in mot:
+        resultat += lettre + &quot;.&quot;
+    return resultat">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell80"># Écrire ici le code de la fonction
+# définir la fonction épeler (mot)
+def épeler(mot):
+    resultat=&quot;&quot;
+    for lettre in mot:
+        resultat += lettre + &quot;.&quot;
+    return resultat</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell80')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell80')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell80"></div>
+</div>
+
+<div class="code-cell" id="cell81" data-original="# tester ici
+épeler(&quot;Alice&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell81"># tester ici
+épeler(&quot;Alice&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell81')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell81')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell81"></div>
+</div>
+
+<div class="code-cell" id="cell82" data-original="# tester ici
+épeler(&quot;sympathique&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell82"># tester ici
+épeler(&quot;sympathique&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell82')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell82')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell82"></div>
+</div>
+
+<div class="code-cell verif-cell" id="cell83" data-original="# vérification
+assert épeler(&quot;Alice&quot;) == &#x27;A.l.i.c.e.&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert épeler(&quot;sympathique&quot;) == &#x27;s.y.m.p.a.t.h.i.q.u.e.&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;">
+  <span class="cell-badge verif">✔ Vérification</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell83"># vérification
+assert épeler(&quot;Alice&quot;) == &#x27;A.l.i.c.e.&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert épeler(&quot;sympathique&quot;) == &#x27;s.y.m.p.a.t.h.i.q.u.e.&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell83')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell83')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell83"></div>
+</div>
+<div class="h3-section" id="exercice-4-le-verlan-et-les-palindromes"><h3>🖊️ Exercice 4 : le verlan et les palindromes</h3></div>
+
+<div class="code-cell" id="cell84" data-original="# Écrire ici le code de la fonction
+mot=[&quot;m&quot;,&quot;e&quot;,&quot;t&quot;,&quot;h&quot;,&quot;j&quot;]
+mot.reverse()
+mot">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell84"># Écrire ici le code de la fonction
+mot=[&quot;m&quot;,&quot;e&quot;,&quot;t&quot;,&quot;h&quot;,&quot;j&quot;]
+mot.reverse()
+mot</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell84')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell84')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell84"></div>
+</div>
+
+<div class="code-cell" id="cell85" data-original="# tester ici
+verlan(&quot;frites&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell85"># tester ici
+verlan(&quot;frites&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell85')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell85')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell85"></div>
+</div>
+
+<div class="code-cell" id="cell86" data-original="# tester ici
+verlan(&quot;ecart&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell86"># tester ici
+verlan(&quot;ecart&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell86')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell86')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell86"></div>
+</div>
+
+<div class="code-cell verif-cell" id="cell87" data-original="# vérification 
+assert verlan(&quot;frites&quot;) == &#x27;setirf&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert verlan(&quot;ecart&quot;) == &#x27;trace&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;">
+  <span class="cell-badge verif">✔ Vérification</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell87"># vérification 
+assert verlan(&quot;frites&quot;) == &#x27;setirf&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert verlan(&quot;ecart&quot;) == &#x27;trace&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell87')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell87')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell87"></div>
+</div>
+<div class="md-block"><p><strong>b)</strong> Un <strong><em>palindrome</em></strong> est un mot est identique à lui-même si on le lit à l'envers. Par exemple, le mot <code>kayak</code> est un palindrome, mais <code>series</code> n'en est pas un.</p>
+<p>À l'aide de la fonction <code>verlan</code>, écrire le code d'une fonction <code>palindrome</code> qui :</p>
+<ul>
+<li>prend en entrée une chaine de caractères <code>mot</code></li>
+<li>et qui renvoie <code>True</code> si le paramètre <code>mot</code> est un palindrome et <code>False</code> sinon.</li>
+</ul></div>
+
+<div class="code-cell" id="cell88" data-original="# Écrire ici le code de la fonction">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell88"># Écrire ici le code de la fonction</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell88')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell88')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell88"></div>
+</div>
+
+<div class="code-cell" id="cell89" data-original="# tester ici
+palindrome(&quot;kayak&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell89"># tester ici
+palindrome(&quot;kayak&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell89')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell89')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell89"></div>
+</div>
+
+<div class="code-cell" id="cell90" data-original="# tester ici
+palindrome(&quot;series&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell90"># tester ici
+palindrome(&quot;series&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell90')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell90')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell90"></div>
+</div>
+
+<div class="code-cell verif-cell" id="cell91" data-original="# vérification du prof
+assert palindrome(&quot;kayak&quot;) == True, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert palindrome(&quot;series&quot;) == False, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;">
+  <span class="cell-badge verif">✔ Vérification</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell91"># vérification du prof
+assert palindrome(&quot;kayak&quot;) == True, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert palindrome(&quot;series&quot;) == False, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell91')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell91')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell91"></div>
+</div>
+<div class="h3-section" id="exercice-5-des-calculs"><h3>🖊️ Exercice 5 : des calculs</h3></div>
+
+<div class="code-cell" id="cell92" data-original="# Écrire ici le code de la fonction">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell92"># Écrire ici le code de la fonction</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell92')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell92')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell92"></div>
+</div>
+
+<div class="code-cell" id="cell93" data-original="# tester ici
+somme(1,6)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell93"># tester ici
+somme(1,6)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell93')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell93')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell93"></div>
+</div>
+
+<div class="code-cell" id="cell94" data-original="# tester ici
+somme(100,110)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell94"># tester ici
+somme(100,110)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell94')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell94')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell94"></div>
+</div>
+
+<div class="code-cell verif-cell" id="cell95" data-original="# vérification
+assert somme(1,6) == 21, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert somme(100,110) == 1155, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;">
+  <span class="cell-badge verif">✔ Vérification</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell95"># vérification
+assert somme(1,6) == 21, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert somme(100,110) == 1155, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell95')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell95')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell95"></div>
+</div>
+<div class="md-block"><p><strong>b)</strong> Écrire une fonction <code>produit</code> qui :</p>
+<ul>
+<li>prend en entrée deux nombres entiers positifs <code>nb_debut</code> et <code>nb_fin</code> </li>
+<li>et qui renvoie la valeur du produit de tous les entiers compris entre <code>nb_debut</code> et <code>nb_fin</code> (y compris ces deux nombres).</li>
+</ul>
+<p>Par exemple, on veut avoir les résultats suivants :</p>
+<pre><code>&gt;&gt;&gt; produit(1,6)
+720 # car 1 * 2 * 3 * 4 * 5 * 6 = 720
+&gt;&gt;&gt; produit(100,103)
+106110600 # car 100 * 101 * 102 * 103 = 106110600
+</code></pre></div>
+
+<div class="code-cell" id="cell96" data-original="# Écrire ici le code de la fonction">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell96"># Écrire ici le code de la fonction</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell96')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell96')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell96"></div>
+</div>
+
+<div class="code-cell" id="cell97" data-original="# tester ici
+produit(1,6)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell97"># tester ici
+produit(1,6)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell97')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell97')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell97"></div>
+</div>
+
+<div class="code-cell" id="cell98" data-original="# tester ici
+produit(100,103)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell98"># tester ici
+produit(100,103)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell98')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell98')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell98"></div>
+</div>
+
+<div class="code-cell verif-cell" id="cell99" data-original="# vérification
+assert produit(1,6) == 720, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert produit(100,103) == 106110600, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;">
+  <span class="cell-badge verif">✔ Vérification</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell99"># vérification
+assert produit(1,6) == 720, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert produit(100,103) == 106110600, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell99')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell99')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell99"></div>
+</div>
+<div class="h3-section" id="exercice-6-le-bulletin-trimestriel"><h3>🖊️ Exercice 6 : le bulletin trimestriel</h3></div>
+<div class="h3-section" id="exercice-6-le-bulletin-trimestriel-2"><h3>🖊️ Exercice 6 : le bulletin trimestriel</h3></div>
+
+<div class="code-cell" id="cell100" data-original="# Écrire ici le code de la fonction">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell100"># Écrire ici le code de la fonction</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell100')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell100')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell100"></div>
+</div>
+
+<div class="code-cell" id="cell101" data-original="# tester ici">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell101"># tester ici</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell101')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell101')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell101"></div>
+</div>
+
+<div class="code-cell verif-cell" id="cell102" data-original="# vérification 
+assert bulletin(9.1) == &#x27;Insuffisant&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu 1&quot;
+assert bulletin(12.5) == &#x27;Encouragements&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu 2&quot;
+assert bulletin(13) == &#x27;Compliments&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu 3&quot;
+assert bulletin(19.5) == &#x27;Félicitations&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu 4&quot;">
+  <span class="cell-badge verif">✔ Vérification</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell102"># vérification 
+assert bulletin(9.1) == &#x27;Insuffisant&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu 1&quot;
+assert bulletin(12.5) == &#x27;Encouragements&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu 2&quot;
+assert bulletin(13) == &#x27;Compliments&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu 3&quot;
+assert bulletin(19.5) == &#x27;Félicitations&#x27;, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu 4&quot;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell102')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell102')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell102"></div>
+</div>
+<div class="h3-section" id="exercice-7-compter-les-voyelles"><h3>🖊️ Exercice 7 : compter les voyelles</h3></div>
+
+<div class="code-cell" id="cell103" data-original="def nb_voyelles(mot) :
+    voyelles = &quot;aeiouy&quot; 
+    compteur = 0 # création d&#x27;une variable compteur pour compter les voyelles de mot
+    for caractere in mot :
+        for ... in ... :
+            ...
+            
+    return compteur">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell103">def nb_voyelles(mot) :
+    voyelles = &quot;aeiouy&quot; 
+    compteur = 0 # création d&#x27;une variable compteur pour compter les voyelles de mot
+    for caractere in mot :
+        for ... in ... :
+            ...
+            
+    return compteur</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell103')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell103')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell103"></div>
+</div>
+
+<div class="code-cell" id="cell104" data-original="# tester ici
+nb_voyelles(&quot;alice&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell104"># tester ici
+nb_voyelles(&quot;alice&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell104')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell104')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell104"></div>
+</div>
+
+<div class="code-cell" id="cell105" data-original="# tester ici
+nb_voyelles(&quot;informatique&quot;)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell105"># tester ici
+nb_voyelles(&quot;informatique&quot;)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell105')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell105')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell105"></div>
+</div>
+
+<div class="code-cell verif-cell" id="cell106" data-original="# vérification 
+assert nb_voyelles(&quot;alice&quot;) == 3, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert nb_voyelles(&quot;informatique&quot;) == 6, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;">
+  <span class="cell-badge verif">✔ Vérification</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell106"># vérification 
+assert nb_voyelles(&quot;alice&quot;) == 3, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;
+assert nb_voyelles(&quot;informatique&quot;) == 6, &quot;Ce n&#x27;est pas tout à fait ce qui est attendu&quot;</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell106')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell106')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell106"></div>
+</div>
+<div class="h3-section" id="creer-votre-docstings"><h3>🖊️  Créer votre docstings</h3></div>
+
+<div class="code-cell" id="cell107" data-original="def capital_apres_n_annees(capital, taux, nombre_annees) :
+    &quot;&quot;&quot;
+    Renvoie le capital après n années.
+    capital : valeur initiale
+    taux : taux d&#x27;intérêt exprimé en nombre décimal (ex: 0.02 pour un taux de 2 %)
+    nombre_annees : nombre d&#x27;années de placement du capital
+    &quot;&quot;&quot;
+    return capital * (1 + taux)**nombre_annees">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell107">def capital_apres_n_annees(capital, taux, nombre_annees) :
+    &quot;&quot;&quot;
+    Renvoie le capital après n années.
+    capital : valeur initiale
+    taux : taux d&#x27;intérêt exprimé en nombre décimal (ex: 0.02 pour un taux de 2 %)
+    nombre_annees : nombre d&#x27;années de placement du capital
+    &quot;&quot;&quot;
+    return capital * (1 + taux)**nombre_annees</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell107')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell107')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell107"></div>
+</div>
+
+<div class="code-cell" id="cell108" data-original="# exécuter ce code:
+help(capital_apres_n_annees)">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell108"># exécuter ce code:
+help(capital_apres_n_annees)</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell108')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell108')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell108"></div>
+</div>
+<div class="h3-section" id="le-module-doctest"><h3>🖊️  Le module doctest</h3></div>
+
+<div class="code-cell" id="cell109" data-original="def compte_voyelles(mot):
+    &quot;&quot;&quot;
+    renvoie le nombre de voyelles du mot donné en paramètre.
+    &gt;&gt;&gt; compte_voyelles(&quot;python&quot;)
+    2
+    &gt;&gt;&gt; compte_voyelles(&quot;HTTP&quot;)
+    0
+    &gt;&gt;&gt; compte_voyelles(&quot;eau&quot;)
+    3
+    &quot;&quot;&quot;
+    voyelles = &quot;aeiou&quot;
+    total = 0
+    for lettre in mot:
+        if lettre in voyelles:
+            total += 1
+    return total">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell109">def compte_voyelles(mot):
+    &quot;&quot;&quot;
+    renvoie le nombre de voyelles du mot donné en paramètre.
+    &gt;&gt;&gt; compte_voyelles(&quot;python&quot;)
+    2
+    &gt;&gt;&gt; compte_voyelles(&quot;HTTP&quot;)
+    0
+    &gt;&gt;&gt; compte_voyelles(&quot;eau&quot;)
+    3
+    &quot;&quot;&quot;
+    voyelles = &quot;aeiou&quot;
+    total = 0
+    for lettre in mot:
+        if lettre in voyelles:
+            total += 1
+    return total</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell109')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell109')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell109"></div>
+</div>
+
+<div class="code-cell" id="cell110" data-original="import doctest
+doctest.testmod()">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell110">import doctest
+doctest.testmod()</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell110')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell110')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell110"></div>
+</div>
+<div class="md-block"><p>On voit que le test compte_voyelles("python") a renvoyé la valeur 1 alors qu'on attendait 2. En regardant notre fonction, </p>
+<p>on s'aperçoit donc qu'on avait oublié le y dans la liste des voyelles.</p>
+<p>En corrigeant ceci, le test devient :</p></div>
+
+<div class="code-cell" id="cell111" data-original="import doctest
+doctest.testmod()">
+  <span class="cell-badge">&#9654; Cellule Python</span>
+  <div class="cm-wrapper"><textarea class="code-editor" id="ta-cell111">import doctest
+doctest.testmod()</textarea></div>
+  <div class="cell-toolbar">
+    <button class="btn-run" onclick="runCell('cell111')">&#9654; Ex&eacute;cuter</button>
+    <button class="btn-reset" onclick="resetCell('cell111')">&#8635; R&eacute;initialiser</button>
+  </div>
+  <div class="cell-output" id="out-cell111"></div>
+</div>
+</section></main>
+
+<div id="pyodide-status"><span class="spin"></span> Chargement de l'environnement Python…</div>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+<script>
+let pyodideReady = null;
+let pyodide = null;
+
+async function initPyodide(){
+  pyodide = await loadPyodide();
+  pyodideReady = true;
+  const status = document.getElementById('pyodide-status');
+  status.classList.add('ready');
+  status.innerHTML = '✅ Python prêt';
+  setTimeout(()=>{ status.style.opacity='0'; status.style.transition='opacity .6s'; setTimeout(()=>status.remove(),700); }, 1400);
+}
+initPyodide();
+
+// Redirect stdout/stderr per-run using pyodide's setStdout/setStderr with buffering
+async function runCell(cid){
+  const outEl = document.getElementById('out-' + cid);
+  const ta = document.getElementById('ta-' + cid);
+  const code = ta.value;
+
+  if(!pyodideReady){
+    outEl.innerHTML = '<span class="err">⏳ Python est encore en cours de chargement, réessayez dans un instant…</span>';
+    return;
+  }
+
+  outEl.textContent = '';
+  let buffer = [];
+
+  pyodide.setStdout({ batched: (s) => buffer.push(s) });
+  pyodide.setStderr({ batched: (s) => buffer.push(s) });
+
+  try {
+    // Strip lines that import the platform-specific "tutor" visualizer (not available here)
+    const cleaned = code.split('\n').filter(l => !l.includes('from tutor import') && !/^\s*tutor\(\)\s*$/.test(l)).join('\n');
+
+    let result = await pyodide.runPythonAsync(cleaned);
+    let text = buffer.join('\n');
+    if(result !== undefined && result !== null && typeof result !== 'undefined'){
+      // pyodide returns Python None as undefined; only show repr for real returned values
+      try{
+        const repr = pyodide.globals.get('repr')(result);
+        if(repr !== undefined && repr !== 'None'){
+          text += (text ? '\n' : '') + repr;
+        }
+      }catch(e){}
+    }
+    outEl.innerHTML = text ? escapeHtml(text) : '<span class="ok">✔ Exécuté avec succès (aucune sortie)</span>';
+  } catch (err) {
+    let msg = err.message || String(err);
+    // Trim the pyodide internal traceback noise, keep the useful Python part
+    const idx = msg.indexOf('Traceback (most recent call last):');
+    if(idx !== -1) msg = msg.slice(idx);
+    outEl.innerHTML = (buffer.join('\n') ? escapeHtml(buffer.join('\n')) + '\n' : '') + '<span class="err">' + escapeHtml(msg) + '</span>';
+  }
+}
+
+function resetCell(cid){
+  const cellEl = document.getElementById(cid);
+  const ta = document.getElementById('ta-' + cid);
+  ta.value = cellEl.getAttribute('data-original');
+  document.getElementById('out-' + cid).innerHTML = '';
+}
+
+function escapeHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Auto-resize textareas
+document.querySelectorAll('.code-editor').forEach(ta => {
+  ta.style.height = Math.max(50, ta.scrollHeight) + 'px';
+  ta.addEventListener('input', () => { ta.style.height='auto'; ta.style.height = ta.scrollHeight + 'px'; });
+});
+
+// Sidebar active-link highlighting on scroll
+const navLinks = document.querySelectorAll('.nav-link');
+const targets = Array.from(navLinks).map(a => document.getElementById(a.dataset.target)).filter(Boolean);
+function updateActive(){
+  let currentId = null;
+  const scrollPos = window.scrollY + 120;
+  for(const t of targets){
+    if(t.offsetTop <= scrollPos) currentId = t.id;
+  }
+  navLinks.forEach(a => a.classList.toggle('active', a.dataset.target === currentId));
+}
+window.addEventListener('scroll', updateActive, {passive:true});
+updateActive();
+
+// Close mobile sidebar when a link is clicked
+navLinks.forEach(a => a.addEventListener('click', () => {
+  document.getElementById('sidebar').classList.remove('open');
+}));
+</script>
+</body>
+</html>",
+  "examples": [],
+  "activities": [],
+  "exerciseSeries": [],
+  "summary": "Resume de la lecon",
+  "keywords": ["mot-cle1", "mot-cle2"],
+  "duration": 45,
+  "difficulty": 2
+}
